@@ -1,26 +1,25 @@
 #include "stdafx.h"
-#include"CompressedSparseRow.h"
+#include"CompressedSparseColumn.h"
 #include<vector>
 #include<iostream>
 #include<fstream>
+
 using namespace std;
 
-CompressedSparseRow::CompressedSparseRow() : SparseMatrix::SparseMatrix() {
+
+CompressedSparseColumn::CompressedSparseColumn() : SparseMatrix::SparseMatrix() {
+
+}
+CompressedSparseColumn::CompressedSparseColumn(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
 }
 
-CompressedSparseRow::CompressedSparseRow(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
-}
-
-CompressedSparseRow::~CompressedSparseRow(){
-}
-
-void CompressedSparseRow::setMatrix(double** matrix) {
+void CompressedSparseColumn::setMatrix(int** matrix) {
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		IA.push_back(k);
 		for (int j = 0; j < n; j++) {
-			if (matrix[i][j] != 0) {
-				AA.push_back(matrix[i][j]);
+			if (matrix[j][i] != 0) {
+				AA.push_back(matrix[j][i]);
 				JA.push_back(j);
 				k++;
 			}
@@ -29,11 +28,11 @@ void CompressedSparseRow::setMatrix(double** matrix) {
 	IA.push_back(k);
 }
 
-void CompressedSparseRow::setMatrix(vector<double> values, vector<double> JR, vector<double> JC) {
+void CompressedSparseColumn::setMatrix(vector<double> values, vector<double> JR, vector<double> JC) {
 	AA.reserve(values.size());
 	copy(values.begin(), values.end(), back_inserter(AA));
-	JA.reserve(JR.size());
-	copy(JR.begin(), JR.end(), back_inserter(JA));
+	JA.reserve(JC.size());
+	copy(JC.begin(), JC.end(), back_inserter(JA));
 	int k = 0;
 	IA.push_back(0);
 	for (int i = 1; i < JC.size(); i++) {
@@ -43,7 +42,8 @@ void CompressedSparseRow::setMatrix(vector<double> values, vector<double> JR, ve
 	}
 }
 
-void CompressedSparseRow::printAA() {
+
+void CompressedSparseColumn::printAA() {
 	cout << "AA:  ";
 	for (auto i : AA) {
 		cout << i << ' ';
@@ -51,7 +51,7 @@ void CompressedSparseRow::printAA() {
 	cout << endl;
 }
 
-void CompressedSparseRow::printJA() {
+void CompressedSparseColumn::printJA() {
 	cout << "JA:  ";
 	for (auto i : JA) {
 		cout << i << ' ';
@@ -59,7 +59,7 @@ void CompressedSparseRow::printJA() {
 	cout << endl;
 }
 
-void CompressedSparseRow::printIA() {
+void CompressedSparseColumn::printIA() {
 	cout << "IA:  ";
 	for (auto i : IA) {
 		cout << i << ' ';
@@ -67,8 +67,8 @@ void CompressedSparseRow::printIA() {
 	cout << endl;
 }
 
-void CompressedSparseRow::print() {
-	cout << "Compressed sparse row format: " << endl;
+void CompressedSparseColumn::print() {
+	cout << "Compressed sparse column format: " << endl;
 	printAA();
 	printJA();
 	printIA();

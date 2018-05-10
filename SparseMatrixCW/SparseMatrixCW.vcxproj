@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CompressedSparseColumn.h" />
     <ClInclude Include="CompressedSparseRow.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="SparseMatrix.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CompressedSparseColumn.cpp" />
     <ClCompile Include="CompressedSparseRow.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="SparseMatrix.cpp" />
