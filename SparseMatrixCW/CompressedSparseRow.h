@@ -3,7 +3,6 @@
 #include"Coordinate.h"
 #ifndef COMPRESSEDSPARSEROW_H
 #define COMRPESSEDSPARSEROW_H
-using namespace std;
 class CompressedSparseRow : public SparseMatrix {
 private:
 	vector<double> AA;

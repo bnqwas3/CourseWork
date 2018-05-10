@@ -8,19 +8,20 @@ using namespace std;
 
 
 CompressedSparseColumn::CompressedSparseColumn() : SparseMatrix::SparseMatrix() {
-
 }
 CompressedSparseColumn::CompressedSparseColumn(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
 }
+CompressedSparseColumn::~CompressedSparseColumn() {
 
-void CompressedSparseColumn::setMatrix(int** matrix) {
+}
+void CompressedSparseColumn::setMatrix(double** matrix) {
 	int k = 0;
-	for (int i = 0; i < n; i++) {
+	for (int j = 0; j < n; j++) {
 		IA.push_back(k);
-		for (int j = 0; j < n; j++) {
-			if (matrix[j][i] != 0) {
-				AA.push_back(matrix[j][i]);
-				JA.push_back(j);
+		for (int i = 0; i < n; i++) {
+			if (matrix[i][j] != 0) {
+				AA.push_back(matrix[i][j]);
+				JA.push_back(i);
 				k++;
 			}
 		}

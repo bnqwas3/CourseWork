@@ -11,7 +11,8 @@ private:
 public:
 	CompressedSparseColumn();
 	CompressedSparseColumn(int n, int elements);
-	void setMatrix(int** matrix);
+	virtual ~CompressedSparseColumn();
+	void setMatrix(double** matrix);
 	void setMatrix(vector<double> values, vector<double> JR, vector<double> JC);
 	void print();
 	void printAA();
