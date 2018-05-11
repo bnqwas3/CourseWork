@@ -14,6 +14,7 @@ public:
 	virtual ~CompressedSparseColumn();
 	void setMatrix(double** matrix);
 	void setMatrix(vector<double> values, vector<double> JR, vector<double> JC);
+	void setMatrix(ifstream&);
 	void print();
 	void printAA();
 	void printJA();
