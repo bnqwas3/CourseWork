@@ -47,7 +47,23 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 	}
 }
 
+void CompressedSparseColumn::dotVector(vector<double> x) {
+	for (int j = 0; j < n; j++) {
+		int k1 = IA[j];
+		int k2 = IA[j + 1];
+		for (int k = k1; k < k2; k++) {
+			b[JA[k]] = b[JA[k]] + x[j] * AA[k];
+		}
+	}
+}
 
+void CompressedSparseColumn::printB() {
+	SparseMatrix::printB();
+	for (auto i : b) {
+		cout << i << ' ';
+	}
+	cout << endl;
+}
 void CompressedSparseColumn::printAA() {
 	cout << "AA:  ";
 	for (auto i : AA) {
