@@ -29,7 +29,7 @@ void CompressedSparseRow::setMatrix(double** matrix) {
 	IA.push_back(k);
 }
 
-void CompressedSparseRow::setMatrix(vector<double> values, vector<double> JR, vector<double> JC) {
+void CompressedSparseRow::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
 	AA.reserve(values.size());
 	copy(values.begin(), values.end(), back_inserter(AA));
 	JA.reserve(JR.size());

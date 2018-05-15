@@ -6,14 +6,14 @@
 class CompressedSparseRow : public SparseMatrix {
 private:
 	vector<double> AA;
-	vector<double> JA;
-	vector<double> IA;
+	vector<int> JA;
+	vector<int> IA;
 public:
 	CompressedSparseRow();
 	CompressedSparseRow(int n, int elements);
 	virtual ~CompressedSparseRow();
 	void setMatrix(double** matrix);
-	void setMatrix(vector<double> values, vector<double> JR, vector<double> JC);
+	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
 	void printAA();
 	void printJA();
 	void printIA();

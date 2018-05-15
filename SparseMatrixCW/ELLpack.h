@@ -8,14 +8,14 @@ using namespace std;
 
 class ELLpack : public SparseMatrix {
 private:
-	vector<int>* coef;
+	vector<double>* coef;
 	vector<int>* jcoef;
 public:
 	ELLpack();
 	ELLpack(int n, int elements);
 	virtual ~ELLpack();
 	void setMatrix(double**);
-	void setMatrix(vector<int> AA, vector<int> JR, vector<int> JC);
+	void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
 	void printCOEF();
 	void printJCOEF();
 	void print();

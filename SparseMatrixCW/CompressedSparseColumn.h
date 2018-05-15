@@ -5,7 +5,7 @@
 #define COMRPESSEDSPARSECOLUMN_H
 class CompressedSparseColumn : public SparseMatrix {
 private:
-	vector<int> AA;
+	vector<double> AA;
 	vector<int> JA;
 	vector<int> IA;
 public:
@@ -13,8 +13,7 @@ public:
 	CompressedSparseColumn(int n, int elements);
 	virtual ~CompressedSparseColumn();
 	void setMatrix(double** matrix);
-	void setMatrix(vector<double> values, vector<double> JR, vector<double> JC);
-	void setMatrix(ifstream&);
+	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
 	void print();
 	void printAA();
 	void printJA();

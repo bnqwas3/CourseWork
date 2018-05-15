@@ -8,7 +8,7 @@ using namespace std;
 Hybrid::Hybrid() : SparseMatrix::SparseMatrix() {
 }
 Hybrid::Hybrid(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
-	coef = new vector<int>[n];
+	coef = new vector<double>[n];
 	jcoef = new vector<int>[n];
 }
 

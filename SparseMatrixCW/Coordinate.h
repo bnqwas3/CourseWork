@@ -8,16 +8,17 @@ using namespace std;
 class Coordinate : public SparseMatrix {
 private:
 	vector<double> AA;
-	vector<double> JR;
-	vector<double> JC;
+	vector<int> JR;
+	vector<int> JC;
 public:
 	Coordinate();
 	Coordinate(int n, int elements);
 	virtual ~Coordinate();
 	void setMatrix(double** matrix);
+	void setMatrix(ifstream& in);
 	vector<double> getAA();
-	vector<double> getJR();
-	vector<double> getJC();
+	vector<int> getJR();
+	vector<int> getJC();
 	void printAA();
 	void printJR();
 	void printJC();

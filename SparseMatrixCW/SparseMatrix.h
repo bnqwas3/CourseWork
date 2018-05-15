@@ -16,7 +16,7 @@ public:
 	SparseMatrix();
 	SparseMatrix(int n, int elements);
 	virtual ~SparseMatrix();
-	virtual void setMatrix(vector<int> AA, vector<int> JR, vector<int> JC);
+	virtual void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
 	virtual void setMatrix(double** matrix);
 	virtual void print();
 };

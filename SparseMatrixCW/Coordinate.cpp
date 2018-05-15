@@ -16,13 +16,26 @@ void Coordinate::setMatrix(double** matrix) {
 		}
 	}
 }
+
+void Coordinate::setMatrix(ifstream& in) {
+	double real;
+	int row;
+	int column;
+	double imaginary;
+	for (int i = 0; i < elements; i++) {
+		in >> row >> column >> real;
+		AA.push_back(real);
+		JR.push_back(row);
+		JC.push_back(column);
+	}
+}
 vector<double> Coordinate::getAA() {
 	return AA;
 }
-vector<double> Coordinate::getJR() {
+vector<int> Coordinate::getJR() {
 	return JR;
 }
-vector<double> Coordinate::getJC() {
+vector<int> Coordinate::getJC() {
 	return JC;
 }
 void Coordinate::printAA() {

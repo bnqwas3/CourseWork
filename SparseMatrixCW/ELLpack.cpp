@@ -8,7 +8,7 @@ using namespace std;
 ELLpack::ELLpack() : SparseMatrix::SparseMatrix() {
 }
 ELLpack::ELLpack(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
-	coef = new vector<int>[n];
+	coef = new vector<double>[n];
 	jcoef = new vector<int>[n];
 }
 
@@ -16,7 +16,7 @@ ELLpack::~ELLpack() {
 
 }
 
-void ELLpack::setMatrix(vector<int> AA, vector<int> JR, vector<int> JC) {
+void ELLpack::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
 	for (int i = 0; i < elements; i++) {
 		coef[JR[i]].push_back(AA[i]);
 		jcoef[JR[i]].push_back(JC[i]);

@@ -14,6 +14,6 @@ SparseMatrix::SparseMatrix(int n, int elements) {
 }
 SparseMatrix::~SparseMatrix() {}
 
-void SparseMatrix::setMatrix(vector<int> AA, vector<int> JR, vector<int> JC) {}
+void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 void SparseMatrix::print() {}

@@ -5,10 +5,10 @@
 #define HYBRID_H
 class Hybrid : public SparseMatrix {
 private:
-	vector<int> AA;
+	vector<double> AA;
 	vector<int> JR;
 	vector<int> JC;
-	vector<int>* coef;
+	vector<double>* coef;
 	vector<int>* jcoef;
 	int k;
 public:
