@@ -57,10 +57,6 @@ void Coordinate::dotVector(vector<double> x) {
 }
 void Coordinate::printB() {
 	SparseMatrix::printB();
-	for (auto i : b) {
-		cout << i << ' ';
-	}
-	cout << endl;
 }
 vector<double> Coordinate::getAA() {
 	return AA;

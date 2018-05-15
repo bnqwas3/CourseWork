@@ -47,6 +47,25 @@ void CompressedSparseRow::setMatrix(vector<double> values, vector<int> JR, vecto
 	}
 }
 
+double CompressedSparseRow::calculateBj(vector<double> x, int i, int k1, int k2) {
+	double b = 0;
+	for (int j = k1; j < k2; j++) {
+		b += AA[j] * x[JA[j]];
+	}
+	return b;
+}
+
+void CompressedSparseRow::dotVector(vector<double> x) {
+	for (int i = 0; i < n; i++) {
+		int k1 = IA[i];
+		int k2 = IA[i + 1];
+		b[i] = CompressedSparseRow::calculateBj(x, i, k1, k2);
+	}
+}
+
+void CompressedSparseRow::printB() {
+	SparseMatrix::printB();
+}
 void CompressedSparseRow::printAA() {
 	cout << "AA:  ";
 	for (auto i : AA) {

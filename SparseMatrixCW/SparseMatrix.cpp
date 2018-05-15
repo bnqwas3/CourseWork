@@ -20,6 +20,10 @@ SparseMatrix::SparseMatrix(int n, int elements) {
 SparseMatrix::~SparseMatrix() {}
 void::SparseMatrix::printB() {
 	cout << "vector B: " << endl;
+	for (auto i : b) {
+		cout << i << ' ';
+	}
+	cout << endl;
 }
 void SparseMatrix::dotVector(vector<double> x) {}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}

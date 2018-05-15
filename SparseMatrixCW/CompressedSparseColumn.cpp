@@ -59,10 +59,6 @@ void CompressedSparseColumn::dotVector(vector<double> x) {
 
 void CompressedSparseColumn::printB() {
 	SparseMatrix::printB();
-	for (auto i : b) {
-		cout << i << ' ';
-	}
-	cout << endl;
 }
 void CompressedSparseColumn::printAA() {
 	cout << "AA:  ";
