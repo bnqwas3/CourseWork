@@ -12,6 +12,7 @@ protected:
 	int n;
 	int m;
 	int elements;
+	double time;
 public:
 	SparseMatrix();
 	SparseMatrix(int n, int elements);

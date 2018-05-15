@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include"Coordinate.h"
 #include<iostream>
+#include<ctime>
 using namespace std;
 Coordinate::Coordinate() : SparseMatrix::SparseMatrix() {}
 Coordinate::Coordinate(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {}
 Coordinate::~Coordinate(){}
 void Coordinate::setMatrix(double** matrix) {
+	unsigned int start_time = clock();
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (matrix[i][j] != 0) {
@@ -15,6 +17,8 @@ void Coordinate::setMatrix(double** matrix) {
 			}
 		}
 	}
+	unsigned int end_time = clock();
+	time = (double)( end_time - start_time ) / CLOCKS_PER_SEC;
 }
 
 void Coordinate::setMatrix(ifstream& in) {
@@ -64,5 +68,6 @@ void Coordinate::print() {
 	printAA();
 	printJR();
 	printJC();
+	SparseMatrix::print();
 	cout << endl;
 }

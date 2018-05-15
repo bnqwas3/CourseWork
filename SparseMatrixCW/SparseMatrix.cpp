@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include<vector>
 #include<fstream>
+#include<iostream>
 #include"SparseMatrix.h"
 using namespace std;
 
@@ -16,4 +17,6 @@ SparseMatrix::~SparseMatrix() {}
 
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
-void SparseMatrix::print() {}
+void SparseMatrix::print() {
+	cout << "time: " << time << endl;
+}

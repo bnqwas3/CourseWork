@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include"CompressedSparseRow.h"
+#include<ctime>
 #include<vector>
 #include<iostream>
 #include<fstream>
@@ -15,6 +16,7 @@ CompressedSparseRow::~CompressedSparseRow(){
 }
 
 void CompressedSparseRow::setMatrix(double** matrix) {
+	unsigned int start_time = clock();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		IA.push_back(k);
@@ -27,6 +29,8 @@ void CompressedSparseRow::setMatrix(double** matrix) {
 		}
 	}
 	IA.push_back(k);
+	unsigned int end_time = clock();
+	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 }
 
 void CompressedSparseRow::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
@@ -72,5 +76,6 @@ void CompressedSparseRow::print() {
 	printAA();
 	printJA();
 	printIA();
+	SparseMatrix::print();
 	cout << endl;
 }

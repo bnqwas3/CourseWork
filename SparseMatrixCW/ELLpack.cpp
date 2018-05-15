@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include"ELLpack.h"
+#include<ctime>
 #include<vector>
 #include<iostream>
 #include<fstream>
@@ -24,6 +25,7 @@ void ELLpack::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
 }
 
 void ELLpack::setMatrix(double** matrix) {
+	unsigned int start_time = clock();
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (matrix[i][j] != 0) {
@@ -32,6 +34,8 @@ void ELLpack::setMatrix(double** matrix) {
 			}
 		}
 	}
+	unsigned int end_time = clock();
+	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 }
 void ELLpack::printCOEF() {
 	cout << "COEF: " << endl;
@@ -57,5 +61,6 @@ void ELLpack::print() {
 	cout << "ELLpack-itpack: " << endl;
 	printCOEF();
 	printJCOEF();
+	SparseMatrix::print();
 	cout << endl;
 }

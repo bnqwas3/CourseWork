@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include"Hybrid.h"
+#include<ctime>
 #include<vector>
 #include<iostream>
 #include<fstream>
@@ -42,6 +43,7 @@ void Hybrid::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
 }
 
 void Hybrid::setMatrix(double** matrix) {
+	unsigned int start_time = clock();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		k = 0;
@@ -53,6 +55,8 @@ void Hybrid::setMatrix(double** matrix) {
 		fillColumn(k, matrix, i);
 			
 	}
+	unsigned int end_time = clock();
+	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 }
 void Hybrid::printCOEF() {
 	cout << "COEF: " << endl;
@@ -95,6 +99,7 @@ void Hybrid::printJC() {
 	for (auto i : JC) {
 		cout << i << ' ';
 	}
+	cout << endl;
 }
 
 void Hybrid::print() {
@@ -104,5 +109,6 @@ void Hybrid::print() {
 	printAA();
 	printJR();
 	printJC();
+	SparseMatrix::print();
 	cout << endl;
 }
