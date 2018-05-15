@@ -33,6 +33,35 @@ void Coordinate::setMatrix(ifstream& in) {
 		JC.push_back(column);
 	}
 }
+double Coordinate::calculateBi(int i,vector<double> x) {
+	double bAti = 0;
+	for (int j = 0; j < n; j++) {
+		bAti += getValueAtIJ(i, j)*x[j];
+	}
+	return bAti;
+}
+
+double Coordinate::getValueAtIJ(int i, int j) {
+	for (int index = 0; index < elements; index++) {
+		if (JC[index] == j && JR[index] == i) {
+			return AA[index];
+		}
+	}
+	return 0;
+}
+void Coordinate::dotVector(vector<double> x) {
+	b.reserve(x.size());
+	for (int i = 0; i < n; i++) {
+		b[i] = calculateBi(i,x);
+	}
+}
+void Coordinate::printB() {
+	SparseMatrix::printB();
+	for (auto i : b) {
+		cout << i << ' ';
+	}
+	cout << endl;
+}
 vector<double> Coordinate::getAA() {
 	return AA;
 }

@@ -12,9 +12,16 @@ SparseMatrix::SparseMatrix() {
 SparseMatrix::SparseMatrix(int n, int elements) {
 	this->n = n;
 	this->elements = elements;
+	b.reserve(n);
+	for (int i = 0; i < n; i++) {
+		b.push_back(0);
+	}
 }
 SparseMatrix::~SparseMatrix() {}
-
+void::SparseMatrix::printB() {
+	cout << "vector B: " << endl;
+}
+void SparseMatrix::dotVector(vector<double> x) {}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 void SparseMatrix::print() {

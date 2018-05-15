@@ -13,12 +13,15 @@ protected:
 	int m;
 	int elements;
 	double time;
+	vector<double> b;
 public:
 	SparseMatrix();
 	SparseMatrix(int n, int elements);
 	virtual ~SparseMatrix();
 	virtual void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
 	virtual void setMatrix(double** matrix);
+	virtual void dotVector(vector<double> x);
 	virtual void print();
+	virtual void printB();
 };
 #endif

@@ -12,16 +12,20 @@ private:
 	vector<int> JC;
 public:
 	Coordinate();
-	Coordinate(int n, int elements);
+	Coordinate(int, int);
 	virtual ~Coordinate();
-	void setMatrix(double** matrix);
-	void setMatrix(ifstream& in);
+	void setMatrix(double**);
+	void setMatrix(ifstream&);
+	void dotVector(vector<double>);
+	double calculateBi(int, vector<double>);
+	double getValueAtIJ(int, int);
 	vector<double> getAA();
 	vector<int> getJR();
 	vector<int> getJC();
 	void printAA();
 	void printJR();
 	void printJC();
+	void printB();
 	void print();
 };
 #endif
