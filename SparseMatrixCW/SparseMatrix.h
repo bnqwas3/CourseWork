@@ -18,8 +18,6 @@ public:
 	virtual ~SparseMatrix();
 	virtual void setMatrix(vector<int> AA, vector<int> JR, vector<int> JC);
 	virtual void setMatrix(double** matrix);
-	virtual void setMatrix(ifstream& ofs);
 	virtual void print();
-	virtual void setFromFile(ifstream& ofs);
 };
 #endif

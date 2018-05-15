@@ -16,22 +16,6 @@ void Coordinate::setMatrix(double** matrix) {
 		}
 	}
 }
-
-void Coordinate::setFromFile(ifstream& ofs) {
-	ofs >> n;
-	ofs >> m;
-	ofs >> elements;
-	int tempi;
-	int tempj;
-	double tempa;
-	double tempb;
-	for (int i = 0; i < elements; i++) {
-		ofs >> tempi >> tempj >> tempa >> tempb;
-		AA.push_back(tempa);
-		JR.push_back(tempi - 1);
-		JC.push_back(tempj - 1);
-	}
-}
 vector<double> Coordinate::getAA() {
 	return AA;
 }

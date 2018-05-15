@@ -17,4 +17,3 @@ SparseMatrix::~SparseMatrix() {}
 void SparseMatrix::setMatrix(vector<int> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 void SparseMatrix::print() {}
-void SparseMatrix::setFromFile(ifstream& ofs) {}

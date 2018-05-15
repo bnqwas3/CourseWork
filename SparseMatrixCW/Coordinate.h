@@ -15,7 +15,6 @@ public:
 	Coordinate(int n, int elements);
 	virtual ~Coordinate();
 	void setMatrix(double** matrix);
-	void setFromFile(ifstream& ofs);
 	vector<double> getAA();
 	vector<double> getJR();
 	vector<double> getJC();

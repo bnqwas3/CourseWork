@@ -1,0 +1,108 @@
+#include "stdafx.h"
+#include"Hybrid.h"
+#include<vector>
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+Hybrid::Hybrid() : SparseMatrix::SparseMatrix() {
+}
+Hybrid::Hybrid(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
+	coef = new vector<int>[n];
+	jcoef = new vector<int>[n];
+}
+
+Hybrid::~Hybrid() {
+
+}
+
+void Hybrid::fillColumn(int k, double** matrix, int columnToFill) {
+	if (k <= n * 2 / 3) {
+		for (int i = 0; i < n; i++) {
+			if (matrix[i][columnToFill] != 0) {
+				this->AA.push_back(matrix[i][columnToFill]);
+				this->JR.push_back(i);
+				this->JC.push_back(columnToFill);
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < n; i++) {
+			if (matrix[i][columnToFill] != 0) {
+				this->coef[i].push_back(matrix[i][columnToFill]);
+				this->jcoef[i].push_back(columnToFill);
+			}
+		}
+	}
+	
+}
+
+void Hybrid::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
+	//TODO
+}
+
+void Hybrid::setMatrix(double** matrix) {
+	int k = 0;
+	for (int i = 0; i < n; i++) {
+		k = 0;
+		for (int j = 0; j < n; j++) {
+			if (matrix[j][i] != 0) {
+				k++;
+			}
+		}
+		fillColumn(k, matrix, i);
+			
+	}
+}
+void Hybrid::printCOEF() {
+	cout << "COEF: " << endl;
+	for (int i = 0; i < n; i++) {
+		for (auto j = coef[i].begin(); j != coef[i].end(); ++j) {
+			cout << *j << ' ';
+		}
+		cout << endl;
+	}
+}
+
+void Hybrid::printJCOEF() {
+	cout << "JCOEF: " << endl;
+	for (int i = 0; i < n; i++) {
+		for (auto j = jcoef[i].begin(); j != jcoef[i].end(); ++j) {
+			cout << *j << ' ';
+		}
+		cout << endl;
+	}
+}
+
+void Hybrid::printAA() {
+	cout << "AA:  ";
+	for (auto i : AA) {
+		cout << i << ' ';
+	}
+	cout << endl;
+}
+
+void Hybrid::printJR() {
+	cout << "JR:  ";
+	for (auto i : JR) {
+		cout << i << ' ';
+	}
+	cout << endl;
+}
+
+void Hybrid::printJC() {
+	cout << "JC:  ";
+	for (auto i : JC) {
+		cout << i << ' ';
+	}
+}
+
+void Hybrid::print() {
+	cout << "Hybrid: " << endl;
+	printCOEF();
+	printJCOEF();
+	printAA();
+	printJR();
+	printJC();
+	cout << endl;
+}
