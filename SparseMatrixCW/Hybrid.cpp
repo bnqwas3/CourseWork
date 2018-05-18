@@ -70,7 +70,8 @@ void Hybrid::dotVector(vector<double> x) {
 	}
 	k = 0;
 	for (auto i : AA) {
-		b[JR[k]] += i * x[JR[k]];
+		b[JR[k]] += i * x[JC[k]];
+		k++;
 	}
 }
 void Hybrid::printCOEF() {
