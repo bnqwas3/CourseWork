@@ -2,11 +2,15 @@
 #include"Coordinate.h"
 #include<iostream>
 #include<ctime>
+#include<chrono>
 using namespace std;
 Coordinate::Coordinate() : SparseMatrix::SparseMatrix() {}
 Coordinate::Coordinate(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {}
 Coordinate::~Coordinate(){}
 void Coordinate::setMatrix(double** matrix) {
+
+	auto begin = chrono::high_resolution_clock::now();
+
 	unsigned int start_time = clock();
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
@@ -17,8 +21,9 @@ void Coordinate::setMatrix(double** matrix) {
 			}
 		}
 	}
-	unsigned int end_time = clock();
-	time = (double)( end_time - start_time ) / CLOCKS_PER_SEC;
+
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void Coordinate::setMatrix(ifstream& in) {

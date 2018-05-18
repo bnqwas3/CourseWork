@@ -4,6 +4,7 @@
 #include<vector>
 #include<iostream>
 #include<fstream>
+#include<chrono>
 
 using namespace std;
 
@@ -16,7 +17,8 @@ CompressedSparseColumn::~CompressedSparseColumn() {
 
 }
 void CompressedSparseColumn::setMatrix(double** matrix) {
-	unsigned int start_time = clock();
+
+	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
 	for (int j = 0; j < n; j++) {
 		IA.push_back(k);
@@ -29,8 +31,9 @@ void CompressedSparseColumn::setMatrix(double** matrix) {
 		}
 	}
 	IA.push_back(k);
-	unsigned int end_time = clock();
-	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {

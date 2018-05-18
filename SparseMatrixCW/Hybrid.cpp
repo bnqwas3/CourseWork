@@ -4,6 +4,7 @@
 #include<vector>
 #include<iostream>
 #include<fstream>
+#include<chrono>
 using namespace std;
 
 Hybrid::Hybrid() : SparseMatrix::SparseMatrix() {
@@ -43,7 +44,8 @@ void Hybrid::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
 }
 
 void Hybrid::setMatrix(double** matrix) {
-	unsigned int start_time = clock();
+
+	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		k = 0;
@@ -55,8 +57,8 @@ void Hybrid::setMatrix(double** matrix) {
 		fillColumn(k, matrix, i);
 			
 	}
-	unsigned int end_time = clock();
-	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void Hybrid::dotVector(vector<double> x) {

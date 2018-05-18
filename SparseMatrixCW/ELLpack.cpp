@@ -4,6 +4,7 @@
 #include<vector>
 #include<iostream>
 #include<fstream>
+#include<chrono>
 using namespace std;
 
 ELLpack::ELLpack() : SparseMatrix::SparseMatrix() {
@@ -25,7 +26,8 @@ void ELLpack::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
 }
 
 void ELLpack::setMatrix(double** matrix) {
-	unsigned int start_time = clock();
+
+	auto begin = chrono::high_resolution_clock::now();
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (matrix[i][j] != 0) {
@@ -34,8 +36,9 @@ void ELLpack::setMatrix(double** matrix) {
 			}
 		}
 	}
-	unsigned int end_time = clock();
-	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 void ELLpack::printCOEF() {
 	cout << "COEF: " << endl;
