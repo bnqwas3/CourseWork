@@ -17,6 +17,7 @@ public:
 	virtual ~Hybrid();
 	void setMatrix(double** matrix);
 	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
+	void dotVector(vector<double> x);
 	void print();
 	void printAA();
 	void printJR();

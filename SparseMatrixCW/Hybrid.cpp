@@ -58,6 +58,21 @@ void Hybrid::setMatrix(double** matrix) {
 	unsigned int end_time = clock();
 	time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 }
+
+void Hybrid::dotVector(vector<double> x) {
+	int k = 0;
+	for (int i = 0; i < n; i++) {
+		k = 0;
+		for (auto j : coef[i]) {
+			b[i] += x[jcoef[i][k]] * j;
+			k++;
+		}
+	}
+	k = 0;
+	for (auto i : AA) {
+		b[JR[k]] += i * x[JR[k]];
+	}
+}
 void Hybrid::printCOEF() {
 	cout << "COEF: " << endl;
 	for (int i = 0; i < n; i++) {
