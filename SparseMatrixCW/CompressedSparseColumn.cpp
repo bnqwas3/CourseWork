@@ -51,6 +51,8 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 }
 
 void CompressedSparseColumn::dotVector(vector<double> x) {
+
+	auto begin = chrono::high_resolution_clock::now();
 	for (int j = 0; j < n; j++) {
 		int k1 = IA[j];
 		int k2 = IA[j + 1];
@@ -58,6 +60,9 @@ void CompressedSparseColumn::dotVector(vector<double> x) {
 			b[JA[k]] = b[JA[k]] + x[j] * AA[k];
 		}
 	}
+
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void CompressedSparseColumn::printB() {

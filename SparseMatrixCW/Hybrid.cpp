@@ -57,7 +57,8 @@ void Hybrid::setMatrix(double** matrix) {
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
-void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
+void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { // works only if JC sorted
+	auto begin = chrono::high_resolution_clock::now();
 	int indexFrom = 0;
 	int indexTo = 1;
 	int k = 1;
@@ -82,9 +83,14 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
 			indexTo = i;
 		}
 	}
+
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void Hybrid::dotVector(vector<double> x) {
+
+	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		k = 0;
@@ -98,6 +104,9 @@ void Hybrid::dotVector(vector<double> x) {
 		b[JR[k]] += i * x[JC[k]];
 		k++;
 	}
+
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 void Hybrid::printCOEF() {
 	cout << "COEF: " << endl;

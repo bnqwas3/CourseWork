@@ -13,6 +13,7 @@ protected:
 	int m;
 	int elements;
 	double time;
+	double timeDotVector;
 	vector<double> b;
 public:
 	SparseMatrix();

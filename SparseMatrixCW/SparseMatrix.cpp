@@ -29,5 +29,6 @@ void SparseMatrix::dotVector(vector<double> x) {}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 void SparseMatrix::print() {
-	cout << "time: " << time << " nano seconds" << endl;
+	cout << "time to set matrix: " << time << " nano seconds" << endl;
+	cout << "time to multiply by vector: " << timeDotVector << " nano seconds" << endl;
 }

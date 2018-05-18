@@ -59,11 +59,15 @@ double CompressedSparseRow::calculateBj(vector<double> x, int i, int k1, int k2)
 }
 
 void CompressedSparseRow::dotVector(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	for (int i = 0; i < n; i++) {
 		int k1 = IA[i];
 		int k2 = IA[i + 1];
 		b[i] = CompressedSparseRow::calculateBj(x, i, k1, k2);
 	}
+
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
 void CompressedSparseRow::printB() {
