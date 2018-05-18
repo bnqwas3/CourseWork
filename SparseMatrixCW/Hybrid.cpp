@@ -39,10 +39,6 @@ void Hybrid::fillColumn(int k, double** matrix, int columnToFill) {
 	
 }
 
-void Hybrid::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
-	//TODO
-}
-
 void Hybrid::setMatrix(double** matrix) {
 
 	auto begin = chrono::high_resolution_clock::now();
@@ -59,6 +55,33 @@ void Hybrid::setMatrix(double** matrix) {
 	}
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+}
+
+void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
+	int indexFrom = 0;
+	int indexTo = 1;
+	int k = 1;
+	for (int i = 0; i < values.size() - 1; i++) {
+		if (JC[i] != JC[i + 1]) {
+			if (k <= n * 2 / 3) {			//FILL COORDINATE;
+				for (int i = indexFrom; i <= indexTo; i++) {
+					this->AA.push_back(values[i]);
+					this->JR.push_back(JR[i]);
+					this->JC.push_back(JC[i]);
+				}
+			}
+			else {
+				for (int i = indexFrom; i <= indexTo; i++) {
+					this->coef[i].push_back(AA[i]);
+					this->jcoef[i].push_back(JC[i]);
+				}
+			}
+			indexFrom = i;
+		}
+		else {
+			indexTo = i;
+		}
+	}
 }
 
 void Hybrid::dotVector(vector<double> x) {
