@@ -27,10 +27,11 @@ void Coordinate::setMatrix(ifstream& in) {
 	int column;
 	double imaginary;
 	for (int i = 0; i < elements; i++) {
-		in >> row >> column >> real;
+		in >> row >> column;
+		real = i;
 		AA.push_back(real);
-		JR.push_back(row);
-		JC.push_back(column);
+		JR.push_back(row-1);
+		JC.push_back(column-1);
 	}
 }
 double Coordinate::calculateBi(int i,vector<double> x) {
@@ -51,9 +52,10 @@ double Coordinate::getValueAtIJ(int i, int j) {
 }
 void Coordinate::dotVector(vector<double> x) {
 	b.reserve(x.size());
-	for (int i = 0; i < n; i++) {
-		b[i] = calculateBi(i,x);
+	for (int i = 0; i < elements; i++) {
+		b[JR[i]] += AA[i] * x[JC[i]];
 	}
+
 }
 void Coordinate::printB() {
 	SparseMatrix::printB();
