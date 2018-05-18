@@ -71,7 +71,7 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { 
 					this->JC.push_back(JC[i]);
 				}
 			}
-			else {
+			else {							//FILL ELL-PACK
 				for (int i = indexFrom; i <= indexTo; i++) {
 					this->coef[i].push_back(AA[i]);
 					this->jcoef[i].push_back(JC[i]);
