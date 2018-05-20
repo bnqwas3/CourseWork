@@ -39,15 +39,16 @@ void CompressedSparseColumn::setMatrix(double** matrix) {
 void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
 	AA.reserve(values.size());
 	copy(values.begin(), values.end(), back_inserter(AA));
-	JA.reserve(JC.size());
-	copy(JC.begin(), JC.end(), back_inserter(JA));
+	JA.reserve(JR.size());
+	copy(JR.begin(), JR.end(), back_inserter(JA));
 	int k = 0;
 	IA.push_back(0);
 	for (int i = 1; i < JC.size(); i++) {
-		if (JR[i] != JR[i - 1]) {
+		if (JC[i] != JC[i - 1]) {
 			IA.push_back(i);
 		}
 	}
+	IA.push_back(JC.size());
 }
 
 void CompressedSparseColumn::dotVector(vector<double> x) {

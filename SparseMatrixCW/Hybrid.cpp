@@ -60,30 +60,36 @@ void Hybrid::setMatrix(double** matrix) {
 void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { // works only if JC sorted
 	auto begin = chrono::high_resolution_clock::now();
 	int indexFrom = 0;
-	int indexTo = 1;
-	int k = 1;
-	for (int i = 0; i < values.size() - 1; i++) {
+	for (int i = 0; i < JC.size() - 1; i++) {
 		if (JC[i] != JC[i + 1]) {
-			if (k <= n * 2 / 3) {			//FILL COORDINATE;
-				for (int i = indexFrom; i <= indexTo; i++) {
-					this->AA.push_back(values[i]);
-					this->JR.push_back(JR[i]);
-					this->JC.push_back(JC[i]);
+			if (i + 1 - indexFrom <= n * 2 / 3) { //FILL COORDINATE
+				for (int j = indexFrom; j <= i; j++) {
+					this->AA.push_back(values[j]);
+					this->JR.push_back(JR[j]);
+					this->JC.push_back(JC[j]);
 				}
 			}
-			else {							//FILL ELL-PACK
-				for (int i = indexFrom; i <= indexTo; i++) {
-					this->coef[i].push_back(AA[i]);
-					this->jcoef[i].push_back(JC[i]);
+			else {
+				for (int j = indexFrom; j <= i; j++) { //FILL ELL_PACK
+					this->coef[JR[j]].push_back(values[j]);
+					this->jcoef[JR[j]].push_back(JC[j]);
 				}
 			}
-			indexFrom = i;
-		}
-		else {
-			indexTo = i;
+			indexFrom = i + 1;
 		}
 	}
-
+	int k = JC.size() - indexFrom;
+	for (int i = indexFrom; i < JC.size(); i++) { //fill last column
+		if (k <= n * 2 / 3) {
+			this->AA.push_back(values[i]);
+			this->JR.push_back(JR[i]);
+			this->JC.push_back(JC[i]);
+		}
+		else {
+			this->coef[JR[i]].push_back(values[i]);
+			this->jcoef[JR[i]].push_back(JC[i]);
+		}
+	}
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }

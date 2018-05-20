@@ -16,6 +16,7 @@ public:
 	virtual ~Coordinate();
 	void setMatrix(double**);
 	void setMatrix(ifstream&);
+	void setMatrix(vector<double>, vector<int>, vector<int>);
 	void dotVector(vector<double>);
 	double calculateBi(int, vector<double>);
 	double getValueAtIJ(int, int);

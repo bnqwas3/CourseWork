@@ -31,14 +31,24 @@ void Coordinate::setMatrix(ifstream& in) {
 	int row;
 	int column;
 	double imaginary;
+	in >> row >> column >> elements;
 	for (int i = 0; i < elements; i++) {
-		in >> row >> column;
-		real = i;
+		in >> row >> column >> real;
 		AA.push_back(real);
 		JR.push_back(row-1);
 		JC.push_back(column-1);
 	}
 }
+
+void Coordinate::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
+	this->AA.reserve(AA.size());
+	copy(AA.begin(), AA.end(), back_inserter(this->AA));
+	this->JR.reserve(JR.size());
+	copy(JR.begin(), JR.end(), back_inserter(this->JR));
+	this->JC.reserve(JC.size());
+	copy(JC.begin(), JC.end(), back_inserter(this->JC));
+}
+
 double Coordinate::calculateBi(int i,vector<double> x) {
 	double bAti = 0;
 	for (int j = 0; j < n; j++) {
