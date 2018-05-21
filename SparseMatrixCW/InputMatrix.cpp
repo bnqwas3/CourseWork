@@ -18,7 +18,7 @@ InputMatrix::InputMatrix(ifstream &fin) {
 	double _imaginary;
 	fin >> n >> m >> nonZeros;
 	for (int i = 0; i < nonZeros; i++) {
-		fin >> _i >> _j >> _real >> _imaginary;
+		fin >> _i >> _j >> _real;
 		real.push_back(_real);
 		JR.push_back(_i - 1);
 		JC.push_back(_j - 1);
