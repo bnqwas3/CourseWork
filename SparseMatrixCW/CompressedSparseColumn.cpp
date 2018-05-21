@@ -37,6 +37,7 @@ void CompressedSparseColumn::setMatrix(double** matrix) {
 }
 
 void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
+	auto begin = chrono::high_resolution_clock::now();
 	AA.reserve(values.size());
 	copy(values.begin(), values.end(), back_inserter(AA));
 	JA.reserve(JR.size());
@@ -49,6 +50,9 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 		}
 	}
 	IA.push_back(JC.size());
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	time /= 1000000000;
 }
 
 void CompressedSparseColumn::dotVector(vector<double> x) {
@@ -64,6 +68,7 @@ void CompressedSparseColumn::dotVector(vector<double> x) {
 
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVector /= 1000000000;
 }
 
 void CompressedSparseColumn::printB() {
@@ -95,9 +100,6 @@ void CompressedSparseColumn::printIA() {
 
 void CompressedSparseColumn::print() {
 	cout << "Compressed sparse column format: " << endl;
-	printAA();
-	printJA();
-	printIA();
 	SparseMatrix::print();
 	cout << endl;
 }

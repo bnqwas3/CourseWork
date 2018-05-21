@@ -24,6 +24,8 @@ void Coordinate::setMatrix(double** matrix) {
 
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	time /= 1000000000;
+	
 }
 
 void Coordinate::setMatrix(ifstream& in) {
@@ -41,12 +43,16 @@ void Coordinate::setMatrix(ifstream& in) {
 }
 
 void Coordinate::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {
+	auto begin = chrono::high_resolution_clock::now();
 	this->AA.reserve(AA.size());
 	copy(AA.begin(), AA.end(), back_inserter(this->AA));
 	this->JR.reserve(JR.size());
 	copy(JR.begin(), JR.end(), back_inserter(this->JR));
 	this->JC.reserve(JC.size());
 	copy(JC.begin(), JC.end(), back_inserter(this->JC));
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	time /= 1000000000;
 }
 
 double Coordinate::calculateBi(int i,vector<double> x) {
@@ -66,11 +72,14 @@ double Coordinate::getValueAtIJ(int i, int j) {
 	return 0;
 }
 void Coordinate::dotVector(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	b.reserve(x.size());
 	for (int i = 0; i < elements; i++) {
 		b[JR[i]] += AA[i] * x[JC[i]];
 	}
-
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVector /= 1000000000;
 }
 void Coordinate::printB() {
 	SparseMatrix::printB();
@@ -107,9 +116,6 @@ void Coordinate::printJC() {
 }
 void Coordinate::print() {
 	cout << "Coordinate format: " << endl;
-	printAA();
-	printJR();
-	printJC();
 	SparseMatrix::print();
 	cout << endl;
 }

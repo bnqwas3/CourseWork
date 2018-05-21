@@ -92,6 +92,7 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { 
 	}
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	time /= 1000000000;
 }
 
 void Hybrid::dotVector(vector<double> x) {
@@ -113,6 +114,7 @@ void Hybrid::dotVector(vector<double> x) {
 
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVector /= 1000000000;
 }
 void Hybrid::printCOEF() {
 	cout << "COEF: " << endl;
@@ -160,11 +162,6 @@ void Hybrid::printJC() {
 
 void Hybrid::print() {
 	cout << "Hybrid: " << endl;
-	printCOEF();
-	printJCOEF();
-	printAA();
-	printJR();
-	printJC();
 	SparseMatrix::print();
 	cout << endl;
 }
