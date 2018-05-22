@@ -3,6 +3,7 @@
 #include<iostream>
 #include<ctime>
 #include<chrono>
+#include<set>
 using namespace std;
 Diagonal::Diagonal() : SparseMatrix::SparseMatrix() {}
 Diagonal::Diagonal(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
@@ -12,48 +13,52 @@ Diagonal::~Diagonal() {}
 
 void Diagonal::allocateMemoryDiag() {
 	for (int i = 0; i < n; i++) { //fill DIAG with zeroes
-		for (int j = 0; j < IOFF.size(); j++) {
+		for (int j = 0; j < IOF.size(); j++) {
 			DIAG[i].push_back(0);
 		}
 	}
 }
+
+int Diagonal::findPositionInDiag(int JC_JR) {
+	set<int>::iterator iter = IOF.find(JC_JR);
+	int setint;
+	if (iter != IOF.end())
+	{
+		setint = *iter;
+	}
+	else {
+		cout << "OUT OF INDEX" << endl;
+		setint = INT_MAX;
+	}
+	int dist = std::distance(IOF.begin(), iter);
+	return dist;
+}
 void Diagonal::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { // works only if JC sorted
 	auto begin = chrono::high_resolution_clock::now();
-	int indexFrom = 0;
-	for (int i = 0; i < n; i++) { //fill IOFF
-		IOFF.push_back(JC[i] - JR[i]);
-		if (JC[i] != JC[i + 1]) {
-			break;
-		}
+	for (int i = 0; i < values.size(); i++) { // fill IOFF
+		IOF.insert(JC[i] - JR[i]);
 	}
-	for (int i = JC.size() - 1; i >= JC.size() - n; i--) {
-		if (JC[i] == JR[i]) {
-			continue;
-		}
-		if (JC[i] != n - 1) {
-			break;
-		}
-		IOFF.push_back(JC[i] - JR[i]);
-	}
-
 	allocateMemoryDiag();
-	int position;
 	for (int i = 0; i < values.size(); i++) {
-		position = find(JC[i] - JR[i]);
-		if (position != INT_MAX) {
-			DIAG[JR[i]][position] = values[i];
-		}
-		
+		DIAG[JR[i]][findPositionInDiag(JC[i] - JR[i])] = values[i];
 	}
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	time /= 1000000000;
 }
 
+int Diagonal::getJinIOF(int j) {
+	auto a = IOF.begin();
+	for (int i = 0; i < j; i++) {
+		a++;
+	}
+	return *a;
+}
+
 void Diagonal::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
-	for (int j = 0; j < IOFF.size(); j++) {
-		int JOFF = IOFF[j];
+	for (int j = 0; j < IOF.size(); j++) {
+		int JOFF = getJinIOF(j);
 		for (int i = 0; i < n; i++) {
 			if (DIAG[i][j] != 0) {
 				b[i] = b[i] + DIAG[i][j] * x[i + JOFF];
@@ -98,6 +103,8 @@ void Diagonal::printB() {
 
 void Diagonal::print() {
 	cout << "Diagonal: " << endl;
+	printDIAG();
+	printIOFF();
 	SparseMatrix::print();
 	cout << endl;
 }

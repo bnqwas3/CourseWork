@@ -76,6 +76,29 @@ void InputMatrix::printJC() {
 	cout << endl;
 }
 
+void InputMatrix::printWithZeros() {
+	double ** matrix = new double*[n];
+	for (int i = 0; i < n; i++) {
+		matrix[i] = new double[n];
+		for (int j = 0; j < n; j++) {
+			matrix[i][j] = 0;
+		}
+	}
+
+	for (int i = 0; i < nonZeros; i++) {
+		matrix[JR[i]][JC[i]] = real[i];
+	}
+	cout << "full matrix: " << endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << matrix[i][j] << '\t';
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < n; i++) {
+		delete[] matrix[i];
+	}
+}
 void InputMatrix::print() {
 	InputMatrix::printReal();
 	InputMatrix::printJR();

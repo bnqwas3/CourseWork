@@ -100,6 +100,9 @@ void CompressedSparseColumn::printIA() {
 
 void CompressedSparseColumn::print() {
 	cout << "Compressed sparse column format: " << endl;
+	printAA();
+	printJA();
+	printIA();
 	SparseMatrix::print();
 	cout << endl;
 }

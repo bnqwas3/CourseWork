@@ -30,5 +30,6 @@ public:
 	void printJR();
 	void printJC();
 	void print();
+	void printWithZeros();
 };
 #endif

@@ -162,6 +162,11 @@ void Hybrid::printJC() {
 
 void Hybrid::print() {
 	cout << "Hybrid: " << endl;
+	printCOEF();
+	printJCOEF();
+	printAA();
+	printJR();
+	printJC();
 	SparseMatrix::print();
 	cout << endl;
 }
