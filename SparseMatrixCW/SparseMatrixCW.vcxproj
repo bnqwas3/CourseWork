@@ -150,6 +150,7 @@
     <ClInclude Include="CompressedSparseColumn.h" />
     <ClInclude Include="CompressedSparseRow.h" />
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Diagonal.h" />
     <ClInclude Include="ELLpack.h" />
     <ClInclude Include="Hybrid.h" />
     <ClInclude Include="InputMatrix.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="CompressedSparseColumn.cpp" />
     <ClCompile Include="CompressedSparseRow.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Diagonal.cpp" />
     <ClCompile Include="ELLpack.cpp" />
     <ClCompile Include="Hybrid.cpp" />
     <ClCompile Include="InputMatrix.cpp" />
