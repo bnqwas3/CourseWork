@@ -70,6 +70,18 @@ void CompressedSparseRow::dotVector(vector<double> x) {
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
 
+void CompressedSparseRow::dotVectorLeft(vector<double> x) {
+	vector<double> result;
+	result.resize(n);
+	for(int j = 0; j < n; j++) {
+		int k1 = IA[j];
+		int k2 = IA[j + 1];
+		for (int k = k1; k < k2; k++) {
+			result[JA[k]] = result[JA[k]] + x[j] * AA[k];
+		}
+	}
+}
+
 void CompressedSparseRow::printB() {
 	SparseMatrix::printB();
 }

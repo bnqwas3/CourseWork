@@ -71,6 +71,33 @@ void CompressedSparseColumn::dotVector(vector<double> x) {
 	timeDotVector /= 1000000000;
 }
 
+void CompressedSparseColumn::dotVectorLeft(vector<double> x) {
+	vector<double> result;
+	result.resize(x.size());
+	
+	for (int i = 0; i < n; i++) {
+		int k1 = IA[i];
+		int k2 = IA[i + 1];
+		result[i] = calculateBi(x, k1, k2);
+	}
+	cout << "multiply left csc" << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << endl;
+
+
+}
+
+double CompressedSparseColumn::calculateBi(vector<double> x, int k1, int k2) {
+	double b = 0;
+	for (int j = k1; j < k2; j++) {
+		b += AA[j] * x[JA[j]];
+	}
+	return b;
+
+}
+
 void CompressedSparseColumn::printB() {
 	SparseMatrix::printB();
 }
@@ -100,9 +127,6 @@ void CompressedSparseColumn::printIA() {
 
 void CompressedSparseColumn::print() {
 	cout << "Compressed sparse column format: " << endl;
-	printAA();
-	printJA();
-	printIA();
 	SparseMatrix::print();
 	cout << endl;
 }

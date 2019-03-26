@@ -116,6 +116,28 @@ void Hybrid::dotVector(vector<double> x) {
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
 }
+
+void Hybrid::dotVectorLeft(vector<double> x) {
+	vector<double> result;
+	result.resize(x.size());
+	int k = 0;
+	for (int i = 0; i < AA.size(); i++) {
+		result[JC[i]] += AA[i] * x[JR[i]];
+	}
+	for (int i = 0; i < n; i++) {
+		k = 0;
+		for (auto element : coef[i]) {
+			result[jcoef[i][k]] += x[i] * element;
+			k++;
+		}
+	}
+	cout << "multiply left Hybrid" << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << endl;
+
+}
 void Hybrid::printCOEF() {
 	cout << "COEF: " << endl;
 	for (int i = 0; i < n; i++) {
@@ -162,11 +184,6 @@ void Hybrid::printJC() {
 
 void Hybrid::print() {
 	cout << "Hybrid: " << endl;
-	printCOEF();
-	printJCOEF();
-	printAA();
-	printJR();
-	printJC();
 	SparseMatrix::print();
 	cout << endl;
 }

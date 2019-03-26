@@ -81,6 +81,20 @@ void Coordinate::dotVector(vector<double> x) {
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
 }
+
+void Coordinate::dotVectorLeft(vector<double> x) {
+	vector<double> result;
+	result.resize(x.size());
+	for (int i = 0; i < elements; i++) {
+		result[JC[i]] += AA[i] * x[JR[i]];
+	}
+	cout << "multiply left coordinate" << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << endl;
+
+}
 void Coordinate::printB() {
 	SparseMatrix::printB();
 }
@@ -116,9 +130,6 @@ void Coordinate::printJC() {
 }
 void Coordinate::print() {
 	cout << "Coordinate format: " << endl;
-	printAA();
-	printJR();
-	printJC();
 	SparseMatrix::print();
 	cout << endl;
 }

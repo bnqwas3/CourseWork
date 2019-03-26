@@ -16,6 +16,7 @@ public:
 	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
 	double calculateBj(vector<double>, int, int, int);
 	void dotVector(vector<double>);
+	void dotVectorLeft(vector<double>);
 	void printB();
 	void printAA();
 	void printJA();

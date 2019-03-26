@@ -22,6 +22,7 @@ public:
 	virtual void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
 	virtual void setMatrix(double** matrix);
 	virtual void dotVector(vector<double> x);
+	virtual void dotVectorLeft(vector<double> x);
 	virtual void print();
 	virtual void printB();
 };

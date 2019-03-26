@@ -19,8 +19,8 @@ void Diagonal::allocateMemoryDiag() {
 	}
 }
 
-int Diagonal::findPositionInDiag(int JC_JR) {
-	set<int>::iterator iter = IOF.find(JC_JR);
+int Diagonal::findPositionInDiag(int differenceJC_JR) {
+	set<int>::iterator iter = IOF.find(differenceJC_JR);
 	int setint;
 	if (iter != IOF.end())
 	{
@@ -33,7 +33,7 @@ int Diagonal::findPositionInDiag(int JC_JR) {
 	int dist = std::distance(IOF.begin(), iter);
 	return dist;
 }
-void Diagonal::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { // works only if JC sorted
+void Diagonal::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
 	auto begin = chrono::high_resolution_clock::now();
 	for (int i = 0; i < values.size(); i++) { // fill IOFF
 		IOF.insert(JC[i] - JR[i]);
@@ -47,7 +47,7 @@ void Diagonal::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) 
 	time /= 1000000000;
 }
 
-int Diagonal::getJinIOF(int j) {
+int Diagonal::getJinIOF(int j) { //return data at position j in IOF;
 	auto a = IOF.begin();
 	for (int i = 0; i < j; i++) {
 		a++;
@@ -68,6 +68,26 @@ void Diagonal::dotVector(vector<double> x) {
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
+}
+
+void Diagonal::dotVectorLeft(vector<double> x) {
+	vector<double> result;
+	result.resize(x.size());
+	int k = 0;
+	for (int i = 0; i < x.size(); i++) {
+		k = 0;
+		for (auto element : DIAG[i]) {
+			if (element != 0) {
+				result[i + getJinIOF(k)] += element * x[i];
+			}
+			k++;
+		}
+	}
+	cout << "multiply left Diagonal: " << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << endl;
 }
 
 int Diagonal::find(int index) {
@@ -97,14 +117,20 @@ void Diagonal::printIOFF() {
 	cout << endl;
 }
 
+void Diagonal::printIOF() {
+	cout << "IOF: ";
+	for (auto i : IOF) {
+		cout << i << ' ';
+	}
+	cout << endl;
+}
+
 void Diagonal::printB() {
 	SparseMatrix::printB();
 }
 
 void Diagonal::print() {
 	cout << "Diagonal: " << endl;
-	printDIAG();
-	printIOFF();
 	SparseMatrix::print();
 	cout << endl;
 }

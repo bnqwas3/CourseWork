@@ -19,6 +19,7 @@ public:
 	void setMatrix(vector<double>, vector<int>, vector<int>);
 	void dotVector(vector<double>);
 	double calculateBi(int, vector<double>);
+	void dotVectorLeft(vector<double>);
 	double getValueAtIJ(int, int);
 	vector<double> getAA();
 	vector<int> getJR();

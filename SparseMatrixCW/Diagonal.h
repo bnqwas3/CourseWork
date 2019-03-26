@@ -17,9 +17,11 @@ public:
 	virtual ~Diagonal();
 	void setMatrix(vector<double>, vector<int>, vector<int>);
 	void dotVector(vector<double>);
+	void dotVectorLeft(vector<double>);
 	void allocateMemoryDiag();
 	void printDIAG();
 	void printIOFF();
+	void printIOF();
 	int find(int);
 	int findPositionInDiag(int);
 	int getJinIOF(int);

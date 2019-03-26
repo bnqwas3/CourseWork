@@ -25,7 +25,8 @@ void::SparseMatrix::printB() {
 	}
 	cout << endl;
 }
-void SparseMatrix::dotVector(vector<double> x) {}
+void SparseMatrix::dotVector(vector<double> x) {/*solve Ax = b */}
+void SparseMatrix::dotVectorLeft(vector<double> x) {/*solve xA = b*/}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 void SparseMatrix::print() {
