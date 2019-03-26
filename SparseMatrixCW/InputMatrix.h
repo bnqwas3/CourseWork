@@ -15,6 +15,7 @@ private:
 	vector<double> imaginary;
 	vector<int> JR;
 	vector<int> JC;
+	vector<double> inverseDiagonal;
 	InputMatrix();
 public:
 	InputMatrix(ifstream &);
@@ -31,5 +32,6 @@ public:
 	void printJC();
 	void print();
 	void printWithZeros();
+	vector<double> getInverseDiagonal();
 };
 #endif

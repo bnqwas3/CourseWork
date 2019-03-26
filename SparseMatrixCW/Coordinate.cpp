@@ -71,30 +71,32 @@ double Coordinate::getValueAtIJ(int i, int j) {
 	}
 	return 0;
 }
-void Coordinate::dotVector(vector<double> x) {
+vector<double> Coordinate::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
+	vector<double> result;
+	result.resize(x.size());
 	b.reserve(x.size());
 	for (int i = 0; i < elements; i++) {
 		b[JR[i]] += AA[i] * x[JC[i]];
+		result[JR[i]] += AA[i] * x[JC[i]];
 	}
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
+	return result;
 }
 
-void Coordinate::dotVectorLeft(vector<double> x) {
+vector<double> Coordinate::dotVectorLeft(vector<double> x) {
 	vector<double> result;
 	result.resize(x.size());
 	for (int i = 0; i < elements; i++) {
 		result[JC[i]] += AA[i] * x[JR[i]];
 	}
-	cout << "multiply left coordinate" << endl;
-	for (int i = 0; i < result.size(); i++) {
-		cout << result[i] << ' ';
-	}
-	cout << endl;
+	return result;
 
 }
+
+
 void Coordinate::printB() {
 	SparseMatrix::printB();
 }
@@ -130,6 +132,10 @@ void Coordinate::printJC() {
 }
 void Coordinate::print() {
 	cout << "Coordinate format: " << endl;
+	printAA();
+	printJR();
+	printJC();
+
 	SparseMatrix::print();
 	cout << endl;
 }

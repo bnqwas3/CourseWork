@@ -95,7 +95,7 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { 
 	time /= 1000000000;
 }
 
-void Hybrid::dotVector(vector<double> x) {
+vector<double> Hybrid::dotVector(vector<double> x) {
 
 	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
@@ -115,9 +115,10 @@ void Hybrid::dotVector(vector<double> x) {
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
+	return b;
 }
 
-void Hybrid::dotVectorLeft(vector<double> x) {
+vector<double> Hybrid::dotVectorLeft(vector<double> x) {
 	vector<double> result;
 	result.resize(x.size());
 	int k = 0;
@@ -131,11 +132,7 @@ void Hybrid::dotVectorLeft(vector<double> x) {
 			k++;
 		}
 	}
-	cout << "multiply left Hybrid" << endl;
-	for (int i = 0; i < result.size(); i++) {
-		cout << result[i] << ' ';
-	}
-	cout << endl;
+	return result;
 
 }
 void Hybrid::printCOEF() {

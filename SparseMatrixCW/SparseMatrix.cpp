@@ -25,10 +25,24 @@ void::SparseMatrix::printB() {
 	}
 	cout << endl;
 }
-void SparseMatrix::dotVector(vector<double> x) {/*solve Ax = b */}
-void SparseMatrix::dotVectorLeft(vector<double> x) {/*solve xA = b*/}
+vector<double> SparseMatrix::dotVector(vector<double> x) {/*solve Ax = b */
+	vector<double> a;
+	a.resize(3);
+	return a;
+}
+vector<double> SparseMatrix::dotVectorLeft(vector<double> x) {/*solve xA = b*/ 
+	vector<double> a;
+	a.resize(3);
+	return a;
+}
+vector<double> SparseMatrix::getInverseDiagonal() {
+	vector<double> a;
+	a.resize(3);
+	return a;
+}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
+
 void SparseMatrix::print() {
 	cout << "time to set matrix: " << time << " seconds" << endl;
 	cout << "time to multiply by vector: " << timeDotVector << " seconds" << endl;

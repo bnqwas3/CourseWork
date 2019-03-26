@@ -16,8 +16,8 @@ public:
 	Diagonal(int, int);
 	virtual ~Diagonal();
 	void setMatrix(vector<double>, vector<int>, vector<int>);
-	void dotVector(vector<double>);
-	void dotVectorLeft(vector<double>);
+	vector<double> dotVector(vector<double>);
+	vector<double> dotVectorLeft(vector<double>);
 	void allocateMemoryDiag();
 	void printDIAG();
 	void printIOFF();

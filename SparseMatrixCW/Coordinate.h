@@ -17,9 +17,9 @@ public:
 	void setMatrix(double**);
 	void setMatrix(ifstream&);
 	void setMatrix(vector<double>, vector<int>, vector<int>);
-	void dotVector(vector<double>);
+	vector<double> dotVector(vector<double>);
 	double calculateBi(int, vector<double>);
-	void dotVectorLeft(vector<double>);
+	vector<double> dotVectorLeft(vector<double>);
 	double getValueAtIJ(int, int);
 	vector<double> getAA();
 	vector<int> getJR();

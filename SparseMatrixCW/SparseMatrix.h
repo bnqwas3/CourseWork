@@ -21,8 +21,9 @@ public:
 	virtual ~SparseMatrix();
 	virtual void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
 	virtual void setMatrix(double** matrix);
-	virtual void dotVector(vector<double> x);
-	virtual void dotVectorLeft(vector<double> x);
+	virtual vector<double> dotVector(vector<double> x);
+	virtual vector<double> dotVectorLeft(vector<double> x);
+	virtual vector<double> getInverseDiagonal();
 	virtual void print();
 	virtual void printB();
 };

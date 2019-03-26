@@ -17,11 +17,15 @@ InputMatrix::InputMatrix(ifstream &fin) {
 	double _real;
 	double _imaginary;
 	fin >> n >> m >> nonZeros;
+	inverseDiagonal.resize(n);
 	for (int i = 0; i < nonZeros; i++) {
 		fin >> _i >> _j >> _real;
 		real.push_back(_real);
 		JR.push_back(_i - 1);
 		JC.push_back(_j - 1);
+		if (JR[i] == JC[i]) {
+			inverseDiagonal[JR[i]] = _real;
+		}
 	}
 }
 
@@ -39,6 +43,10 @@ vector<int> InputMatrix::getJR() {
 
 vector<int> InputMatrix::getJC() {
 	return JC;
+}
+
+vector<double> InputMatrix::getInverseDiagonal() {
+	return inverseDiagonal;
 }
 int InputMatrix::getN() {
 	return n;

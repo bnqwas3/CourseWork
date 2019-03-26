@@ -14,8 +14,8 @@ public:
 	virtual ~CompressedSparseColumn();
 	void setMatrix(double** matrix);
 	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
-	void dotVector(vector<double>);
-	void dotVectorLeft(vector<double>);
+	vector<double> dotVector(vector<double>);
+	vector<double> dotVectorLeft(vector<double>);
 	double calculateBi(vector<double>, int, int);
 	void printB();
 	void print();

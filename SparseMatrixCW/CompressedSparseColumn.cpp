@@ -55,23 +55,27 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 	time /= 1000000000;
 }
 
-void CompressedSparseColumn::dotVector(vector<double> x) {
+vector<double> CompressedSparseColumn::dotVector(vector<double> x) {
 
 	auto begin = chrono::high_resolution_clock::now();
+	vector<double> result;
+	result.resize(x.size());
 	for (int j = 0; j < n; j++) {
 		int k1 = IA[j];
 		int k2 = IA[j + 1];
 		for (int k = k1; k < k2; k++) {
 			b[JA[k]] = b[JA[k]] + x[j] * AA[k];
+			result[JA[k]] = result[JA[k]] + x[j] * AA[k];
 		}
 	}
 
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
+	return result;
 }
 
-void CompressedSparseColumn::dotVectorLeft(vector<double> x) {
+vector<double> CompressedSparseColumn::dotVectorLeft(vector<double> x) {
 	vector<double> result;
 	result.resize(x.size());
 	
@@ -80,13 +84,7 @@ void CompressedSparseColumn::dotVectorLeft(vector<double> x) {
 		int k2 = IA[i + 1];
 		result[i] = calculateBi(x, k1, k2);
 	}
-	cout << "multiply left csc" << endl;
-	for (int i = 0; i < result.size(); i++) {
-		cout << result[i] << ' ';
-	}
-	cout << endl;
-
-
+	return result;
 }
 
 double CompressedSparseColumn::calculateBi(vector<double> x, int k1, int k2) {
