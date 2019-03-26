@@ -26,5 +26,6 @@ public:
 	virtual vector<double> getInverseDiagonal();
 	virtual void print();
 	virtual void printB();
+	int getN();
 };
 #endif

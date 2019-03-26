@@ -97,11 +97,14 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { 
 
 vector<double> Hybrid::dotVector(vector<double> x) {
 
+	vector<double> result;
+	result.resize(x.size());
 	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		k = 0;
 		for (auto j : coef[i]) {
+			result[i] += x[jcoef[i][k]] * j;
 			b[i] += x[jcoef[i][k]] * j;
 			k++;
 		}
@@ -109,13 +112,14 @@ vector<double> Hybrid::dotVector(vector<double> x) {
 	k = 0;
 	for (auto i : AA) {
 		b[JR[k]] += i * x[JC[k]];
+		result[JR[k]] += i * x[JC[k]];
 		k++;
 	}
 
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
-	return b;
+	return result;
 }
 
 vector<double> Hybrid::dotVectorLeft(vector<double> x) {

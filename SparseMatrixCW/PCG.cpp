@@ -7,7 +7,7 @@ using namespace std;
 PCG::PCG(SparseMatrix* A, vector<double> inverseDiag) {
 	alpha = 0;
 	beta = 0;
-	int n = 3;
+	int n = A->getN();
 	inverse_C.resize(n);
 	r.resize(n);
 	d.resize(n);

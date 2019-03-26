@@ -57,18 +57,22 @@ int Diagonal::getJinIOF(int j) { //return data at position j in IOF;
 
 vector<double> Diagonal::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
+	vector<double> result;
+	result.resize(x.size());
 	for (int j = 0; j < IOF.size(); j++) {
 		int JOFF = getJinIOF(j);
 		for (int i = 0; i < n; i++) {
 			if (DIAG[i][j] != 0) {
 				b[i] = b[i] + DIAG[i][j] * x[i + JOFF];
+				result[i] = result[i] + DIAG[i][j] * x[i + JOFF];
+
 			}
 		}
 	}
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
-	return b;
+	return result;
 }
 
 vector<double> Diagonal::dotVectorLeft(vector<double> x) {

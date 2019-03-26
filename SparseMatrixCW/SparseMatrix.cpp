@@ -42,6 +42,9 @@ vector<double> SparseMatrix::getInverseDiagonal() {
 }
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
+int SparseMatrix::getN() {
+	return n;
+}
 
 void SparseMatrix::print() {
 	cout << "time to set matrix: " << time << " seconds" << endl;
