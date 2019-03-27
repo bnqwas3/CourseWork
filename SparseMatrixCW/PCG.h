@@ -18,6 +18,7 @@ protected:
 	vector<double> d_new;
 	double alpha = 0;
 	double beta = 0;
+	double time = 0;
 private:
 	double vectorDotVector(vector<double>&, vector<double>&);
 	void getNext_Alpha(double&, vector<double>&, vector<double>&, vector<double>&, SparseMatrix*);
@@ -29,9 +30,10 @@ private:
 	void initializeValues(vector<double>&, vector<double>&, vector<double>&, vector<double>, vector<double>, SparseMatrix*, vector<double>);
 	void prepareToNextStep(vector<double>&, vector<double>&, vector<double>&, vector<double>, vector<double>, vector<double>);
 	void getInverseC(vector<double>&, vector<double>);
+	double getNorm(vector<double>);
 	void printVector(vector<double>);
 public:
-	PCG(SparseMatrix*,vector<double>);
+	PCG(SparseMatrix*,vector<double>, double);
 };
 
 #endif

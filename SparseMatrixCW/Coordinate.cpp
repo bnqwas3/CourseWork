@@ -132,10 +132,6 @@ void Coordinate::printJC() {
 }
 void Coordinate::print() {
 	cout << "Coordinate format: " << endl;
-	printAA();
-	printJR();
-	printJC();
-
 	SparseMatrix::print();
 	cout << endl;
 }

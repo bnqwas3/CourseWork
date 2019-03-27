@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include<vector>
 #include<iostream>
+#include<chrono>
 #include"PCG.h"
 using namespace std;
 
-PCG::PCG(SparseMatrix* A, vector<double> inverseDiag) {
+PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon) {
+	auto begin = chrono::high_resolution_clock::now();
 	alpha = 0;
 	beta = 0;
 	int n = A->getN();
@@ -26,7 +28,8 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag) {
 	x.push_back(1);
 	x.push_back(1);
 	initializeValues(r, z, d, inverse_C, b, A, x);
-	for (int i = 0; i < 100; i++) {
+	int i = 0;
+	while(getNorm(r) > epsilon) {
 		if (i != 0) prepareToNextStep(z, d, r, z_new, r_new, d_new);
 		getNext_Alpha(alpha, z, r, d, A);
 		getNext_x(x, d, alpha);
@@ -34,9 +37,12 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag) {
 		getNext_z(z_new, z, r_new, inverse_C);
 		getNext_Beta(beta, z_new, r_new, z, r);
 		getNext_d(d_new, beta, z_new, d);
-		cout << i << ": ";
-		printVector(x);
+		i++;
 	}
+	auto end = chrono::high_resolution_clock::now();
+	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	time /= 1000000000;
+	cout << "iterations need: " << i << ", time need: " << time << endl;
 }
 
 double PCG::vectorDotVector(vector<double>& a, vector<double>& b) {
@@ -103,6 +109,14 @@ void PCG::prepareToNextStep(vector<double>& z, vector<double>& d, vector<double>
 	z = z_new;
 	r = r_new;
 	d = d_new;
+}
+
+double PCG::getNorm(vector<double> x) {
+	double norm = 0;
+	for (auto i : x) {
+		norm += i * i;
+	}
+	return sqrt(norm);
 }
 
 void PCG::printVector(vector<double> x) {
