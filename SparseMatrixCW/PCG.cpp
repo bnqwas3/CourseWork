@@ -5,7 +5,7 @@
 #include"PCG.h"
 using namespace std;
 
-PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon) {
+PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<double> _b, vector<double> _x) {
 	auto begin = chrono::high_resolution_clock::now();
 	alpha = 0;
 	beta = 0;
@@ -19,14 +19,9 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon) {
 	d_new.resize(n);
 
 	getInverseC(inverse_C, inverseDiag);
-
-	b.push_back(8);
-	b.push_back(6);
-	b.push_back(4);
-
-	x.push_back(1);
-	x.push_back(1);
-	x.push_back(1);
+	b = _b;
+	x = _x;
+	
 	initializeValues(r, z, d, inverse_C, b, A, x);
 	int i = 0;
 	while(getNorm(r) > epsilon) {

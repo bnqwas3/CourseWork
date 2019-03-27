@@ -33,7 +33,7 @@ private:
 	double getNorm(vector<double>);
 	void printVector(vector<double>);
 public:
-	PCG(SparseMatrix*,vector<double>, double);
+	PCG(SparseMatrix*,vector<double>, double, vector<double>, vector<double>);
 };
 
 #endif
