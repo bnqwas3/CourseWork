@@ -25,21 +25,21 @@ void::SparseMatrix::printB() {
 	}
 	cout << endl;
 }
-vector<double> SparseMatrix::dotVector(vector<double> x) {/*solve Ax = b */
-	vector<double> a;
-	a.resize(3);
-	return a;
-}
-vector<double> SparseMatrix::dotVectorLeft(vector<double> x) {/*solve xA = b*/ 
-	vector<double> a;
-	a.resize(3);
-	return a;
-}
-vector<double> SparseMatrix::getInverseDiagonal() {
-	vector<double> a;
-	a.resize(3);
-	return a;
-}
+//vector<double> SparseMatrix::dotVector(vector<double> x) {/*solve Ax = b */
+//	vector<double> a;
+//	a.resize(n);
+//	return a;
+//}
+//vector<double> SparseMatrix::dotVectorLeft(vector<double> x) {/*solve xA = b*/ 
+//	vector<double> a;
+//	a.resize(n);
+//	return a;
+//}
+//vector<double> SparseMatrix::getInverseDiagonal() {
+//	vector<double> a;
+//	a.resize(n);
+//	return a;
+//}
 void SparseMatrix::setMatrix(vector<double> AA, vector<int> JR, vector<int> JC) {}
 void SparseMatrix::setMatrix(double** matrix) {}
 int SparseMatrix::getN() {

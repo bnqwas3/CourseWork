@@ -34,6 +34,7 @@ private:
 	void printVector(vector<double>);
 public:
 	PCG(SparseMatrix*,vector<double>, double, vector<double>, vector<double>);
+	void printXi(int);
 };
 
 #endif

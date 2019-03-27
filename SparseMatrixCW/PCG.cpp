@@ -17,11 +17,9 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 	r_new.resize(n);
 	z_new.resize(n);
 	d_new.resize(n);
-
 	getInverseC(inverse_C, inverseDiag);
 	b = _b;
 	x = _x;
-	
 	initializeValues(r, z, d, inverse_C, b, A, x);
 	int i = 0;
 	while(getNorm(r) > epsilon) {
@@ -115,7 +113,12 @@ double PCG::getNorm(vector<double> x) {
 }
 
 void PCG::printVector(vector<double> x) {
-	for (int i = 0; i < x.size(); i++) {
+	/*for (int i = 0; i < x.size(); i++) {
+		cout << x[i] << ' ';
+	}
+	cout << endl;*/
+
+	for (int i = 0; i < x.size(); i += x.size() / 5) {
 		cout << x[i] << ' ';
 	}
 	cout << endl;
@@ -130,4 +133,9 @@ void printVector(vector<double> x) {
 		cout << i << ' ';
 	}
 	cout << endl;
+	
+}
+
+void PCG::printXi(int i) {
+	cout << x[i] << ' ';
 }

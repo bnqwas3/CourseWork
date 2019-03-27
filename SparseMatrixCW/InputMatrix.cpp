@@ -18,13 +18,16 @@ InputMatrix::InputMatrix(ifstream &fin) {
 	double _imaginary;
 	fin >> n >> m >> nonZeros;
 	inverseDiagonal.resize(n);
+	for (int i = 0; i < inverseDiagonal.size(); i++) {
+		inverseDiagonal[i] = 1;
+	}
 	for (int i = 0; i < nonZeros; i++) {
 		fin >> _i >> _j >> _real;
 		real.push_back(_real);
 		JR.push_back(_i - 1);
 		JC.push_back(_j - 1);
-		if (JR[i] == JC[i]) {
-			inverseDiagonal[JR[i]] = _real;
+		if (_i == _j) {
+			inverseDiagonal[_i - 1] = 1.0/_real;
 		}
 	}
 }
