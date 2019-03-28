@@ -59,13 +59,14 @@ vector<double> Diagonal::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
-	for (int j = 0; j < IOF.size(); j++) {
-		int JOFF = getJinIOF(j);
-		for (int i = 0; i < n; i++) {
-			if (DIAG[i][j] != 0) {
-				b[i] = b[i] + DIAG[i][j] * x[i + JOFF];
-				result[i] = result[i] + DIAG[i][j] * x[i + JOFF];
-
+	
+	int index;
+	for (int i = 0; i < x.size(); i++) {
+		for (int k = 0; k < DIAG[i].size(); k++) {
+			index = i + IOFat(k);
+			if (index >= 0 && index < x.size()) {
+				result[i] += DIAG[i][k] * x[index];
+				b[i] += DIAG[i][k] * x[index];
 			}
 		}
 	}
@@ -78,7 +79,7 @@ vector<double> Diagonal::dotVector(vector<double> x) {
 vector<double> Diagonal::dotVectorLeft(vector<double> x) {
 	vector<double> result;
 	result.resize(x.size());
-	int k = 0;
+	/*int k = 0;
 	for (int i = 0; i < x.size(); i++) {
 		k = 0;
 		for (auto element : DIAG[i]) {
@@ -86,6 +87,29 @@ vector<double> Diagonal::dotVectorLeft(vector<double> x) {
 				result[i + getJinIOF(k)] += element * x[i];
 			}
 			k++;
+		}
+	}*/
+	int step = 0;
+	int prevIOF = 0;
+	int differenceIOF = 0;
+	int defaultShift = *IOF.begin();
+	int shiftY = 0;
+	for (int i = 0; i < x.size(); i++) { 
+		step = 0;
+		differenceIOF = 0;
+		for (auto nextIOF : IOF) {
+
+			if (step != 0) {
+				differenceIOF += nextIOF - prevIOF;
+			}
+			
+			shiftY = i - defaultShift - differenceIOF;
+			if (shiftY >= 0 && shiftY < x.size()) {
+				result[i] += DIAG[shiftY][step] * x[shiftY];
+			}
+
+			prevIOF = nextIOF;
+			step++;
 		}
 	}
 	return result;
@@ -98,6 +122,12 @@ int Diagonal::find(int index) {
 		}
 	}
 	return INT_MAX;
+}
+
+int Diagonal::IOFat(int position) {
+	set<int>::iterator iter = IOF.begin();
+	advance(iter, position);
+	return *iter;
 }
 
 void Diagonal::printDIAG() {

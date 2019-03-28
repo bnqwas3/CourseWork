@@ -22,7 +22,7 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 	x = _x;
 	initializeValues(r, z, d, inverse_C, b, A, x);
 	int i = 0;
-	while(getNorm(r) > epsilon) {
+	while(getNorm(r) > epsilon && i < 10) {
 		if (i != 0) prepareToNextStep(z, d, r, z_new, r_new, d_new);
 		getNext_Alpha(alpha, z, r, d, A);
 		getNext_x(x, d, alpha);
@@ -35,7 +35,7 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	time /= 1000000000;
-	cout << "iterations need: " << i << ", time need: " << time << endl;
+	cout << "bandwidth: " << (2*n) / time << endl;
 }
 
 double PCG::vectorDotVector(vector<double>& a, vector<double>& b) {

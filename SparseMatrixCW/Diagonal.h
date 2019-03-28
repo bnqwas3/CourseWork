@@ -27,5 +27,6 @@ public:
 	int getJinIOF(int);
 	void printB();
 	void print();
+	int IOFat(int);
 };
 #endif
