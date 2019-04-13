@@ -13,9 +13,7 @@ Diagonal::~Diagonal() {}
 
 void Diagonal::allocateMemoryDiag() {
 	for (int i = 0; i < n; i++) { //fill DIAG with zeroes
-		for (int j = 0; j < IOF.size(); j++) {
-			DIAG[i].push_back(0);
-		}
+		DIAG[i].resize(IOF.size());
 	}
 }
 
@@ -35,9 +33,11 @@ int Diagonal::findPositionInDiag(int differenceJC_JR) {
 }
 void Diagonal::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) {
 	auto begin = chrono::high_resolution_clock::now();
-	for (int i = 0; i < values.size(); i++) { // fill IOFF
+	for (int i = 0; i < values.size(); i++) { // fill IOF
 		IOF.insert(JC[i] - JR[i]);
 	}
+	IOFF.resize(IOF.size());
+	copy(IOF.begin(), IOF.end(), IOFF.begin());
 	allocateMemoryDiag();
 	for (int i = 0; i < values.size(); i++) {
 		DIAG[JR[i]][findPositionInDiag(JC[i] - JR[i])] = values[i];
@@ -59,59 +59,49 @@ vector<double> Diagonal::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
-	
+	int iterations = 0;
 	int index;
 	for (int i = 0; i < x.size(); i++) {
 		for (int k = 0; k < DIAG[i].size(); k++) {
-			index = i + IOFat(k);
-			if (index >= 0 && index < x.size()) {
+			index = i + IOFF[k];
+			if (index >= 0 && index < x.size() && DIAG[i][k] != 0) {
 				result[i] += DIAG[i][k] * x[index];
 				b[i] += DIAG[i][k] * x[index];
+				iterations++;
 			}
 		}
 	}
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVector /= 1000000000;
+	
 	return result;
 }
 
 vector<double> Diagonal::dotVectorLeft(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
-	/*int k = 0;
-	for (int i = 0; i < x.size(); i++) {
-		k = 0;
-		for (auto element : DIAG[i]) {
-			if (element != 0) {
-				result[i + getJinIOF(k)] += element * x[i];
-			}
-			k++;
-		}
-	}*/
-	int step = 0;
-	int prevIOF = 0;
-	int differenceIOF = 0;
-	int defaultShift = *IOF.begin();
+
+	int differenceIOF;
+	int defaultShift = IOFF[0];
 	int shiftY = 0;
+
 	for (int i = 0; i < x.size(); i++) { 
-		step = 0;
 		differenceIOF = 0;
-		for (auto nextIOF : IOF) {
-
-			if (step != 0) {
-				differenceIOF += nextIOF - prevIOF;
+		for (int j = 0; j < IOFF.size(); j++) {
+			if (j != 0) {
+				differenceIOF += IOFF[j] - IOFF[j - 1];
 			}
-			
 			shiftY = i - defaultShift - differenceIOF;
-			if (shiftY >= 0 && shiftY < x.size()) {
-				result[i] += DIAG[shiftY][step] * x[shiftY];
+			if (shiftY >= 0 && shiftY < x.size() && DIAG[shiftY][j] != 0) {
+				result[i] += DIAG[shiftY][j] * x[shiftY];
 			}
-
-			prevIOF = nextIOF;
-			step++;
 		}
 	}
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVectorLeft /= 1000000000;
 	return result;
 }
 
@@ -162,6 +152,9 @@ void Diagonal::printB() {
 
 void Diagonal::print() {
 	cout << "Diagonal: " << endl;
+	cout << "Need memory to store: " << endl;
+	cout << "Matrix DIA[" << n << "][" << IOF.size() << "], array IOF[" << IOFF.size() << "]\n";
+	cout << "summary memory: " << n * IOF.size() + IOFF.size() << " * type_size" << endl;
 	SparseMatrix::print();
 	cout << endl;
 }

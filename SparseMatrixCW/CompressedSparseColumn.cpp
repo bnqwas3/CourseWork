@@ -76,6 +76,7 @@ vector<double> CompressedSparseColumn::dotVector(vector<double> x) {
 }
 
 vector<double> CompressedSparseColumn::dotVectorLeft(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
 	
@@ -84,6 +85,9 @@ vector<double> CompressedSparseColumn::dotVectorLeft(vector<double> x) {
 		int k2 = IA[i + 1];
 		result[i] = calculateBi(x, k1, k2);
 	}
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVectorLeft /= 1000000000;
 	return result;
 }
 
@@ -125,6 +129,9 @@ void CompressedSparseColumn::printIA() {
 
 void CompressedSparseColumn::print() {
 	cout << "Compressed sparse column format: " << endl;
+	cout << "Need memory to store: " << endl;
+	cout << "array AA[" << AA.size() << "], array JA[" << JA.size() << "], array IA[" << IA.size() << "]\n";
+	cout << "summary memory: " << AA.size() + JA.size() + IA.size() << " * type_size" << endl;
 	SparseMatrix::print();
 	cout << endl;
 }

@@ -14,6 +14,7 @@ protected:
 	int elements;
 	double time;
 	double timeDotVector;
+	double timeDotVectorLeft;
 	vector<double> b;
 public:
 	SparseMatrix();

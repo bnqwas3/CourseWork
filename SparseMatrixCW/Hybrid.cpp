@@ -96,10 +96,9 @@ void Hybrid::setMatrix(vector<double> values, vector<int> JR, vector<int> JC) { 
 }
 
 vector<double> Hybrid::dotVector(vector<double> x) {
-
+	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
-	auto begin = chrono::high_resolution_clock::now();
 	int k = 0;
 	for (int i = 0; i < n; i++) {
 		k = 0;
@@ -123,6 +122,7 @@ vector<double> Hybrid::dotVector(vector<double> x) {
 }
 
 vector<double> Hybrid::dotVectorLeft(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
 	int k = 0;
@@ -136,6 +136,9 @@ vector<double> Hybrid::dotVectorLeft(vector<double> x) {
 			k++;
 		}
 	}
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVectorLeft /= 1000000000;
 	return result;
 
 }
@@ -185,6 +188,10 @@ void Hybrid::printJC() {
 
 void Hybrid::print() {
 	cout << "Hybrid: " << endl;
+	cout << "Need memory to store: " << endl;
+	cout << "array AA[" << AA.size() << "], array JR[" << JR.size() << "], array JC[" << JC.size() << "]\n";
+	cout << "matrix COEF[" << n << "][" << coef[0].size() << "], matrix JCOEF[" << n << "][" << coef[0].size() << "]\n";
+	cout << "summary memory: " << AA.size() + JR.size() + JC.size() + 2 * (n * coef[0].size()) << " * type_size" << endl;
 	SparseMatrix::print();
 	cout << endl;
 }

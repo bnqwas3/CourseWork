@@ -76,9 +76,11 @@ vector<double> Coordinate::dotVector(vector<double> x) {
 	vector<double> result;
 	result.resize(x.size());
 	b.reserve(x.size());
+	int iterations = 0;
 	for (int i = 0; i < elements; i++) {
 		b[JR[i]] += AA[i] * x[JC[i]];
 		result[JR[i]] += AA[i] * x[JC[i]];
+		iterations++;
 	}
 	auto end = chrono::high_resolution_clock::now();
 	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
@@ -87,11 +89,15 @@ vector<double> Coordinate::dotVector(vector<double> x) {
 }
 
 vector<double> Coordinate::dotVectorLeft(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
 	for (int i = 0; i < elements; i++) {
 		result[JC[i]] += AA[i] * x[JR[i]];
 	}
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVectorLeft /= 1000000000;
 	return result;
 
 }
@@ -132,6 +138,9 @@ void Coordinate::printJC() {
 }
 void Coordinate::print() {
 	cout << "Coordinate format: " << endl;
+	cout << "Need memory to store: " << endl;
+	cout << "array AA[" << AA.size() << "], array JR[" << JR.size() << "] array JC[" << JC.size() <<"]\n";
+	cout << "summary memory: " << AA.size() + JR.size() + JC.size() << " * type_size" << endl;
 	SparseMatrix::print();
 	cout << endl;
 }

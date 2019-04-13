@@ -16,6 +16,8 @@ public:
 	virtual ~ELLpack();
 	void setMatrix(double**);
 	void setMatrix(vector<double> AA, vector<int> JR, vector<int> JC);
+	vector<double> dotVector(vector<double> x);
+	vector<double> dotVectorLeft(vector<double> x);
 	void printCOEF();
 	void printJCOEF();
 	void print();

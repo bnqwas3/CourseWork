@@ -40,6 +40,49 @@ void ELLpack::setMatrix(double** matrix) {
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 }
+
+vector<double> ELLpack::dotVector(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
+
+	vector<double> result;
+	result.resize(x.size());
+	int k;
+	for (int i = 0; i < n; i++) {
+		k = 0;
+		for (auto j : coef[i]) {
+			result[i] += x[jcoef[i][k]] * j;
+			b[i] += x[jcoef[i][k]] * j;
+			k++;
+		}
+	}
+
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVector = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVector /= 1000000000;
+
+	return result;
+}
+
+vector<double> ELLpack::dotVectorLeft(vector<double> x) {
+	auto begin = chrono::high_resolution_clock::now();
+	vector<double> result;
+	result.resize(x.size());
+	int k;
+	for (int i = 0; i < n; i++) {
+		k = 0;
+		for (auto element : coef[i]) {
+			result[jcoef[i][k]] += x[i] * element;
+			k++;
+		}
+	}
+	auto end = chrono::high_resolution_clock::now();
+	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
+	timeDotVectorLeft /= 1000000000;
+	return result;
+
+}
+
+
 void ELLpack::printCOEF() {
 	cout << "COEF: " << endl;
 	for (int i = 0; i < n; i++) {
@@ -62,8 +105,9 @@ void ELLpack::printJCOEF() {
 
 void ELLpack::print() {
 	cout << "ELLpack-itpack: " << endl;
-	printCOEF();
-	printJCOEF();
+	cout << "Need memory to store: " << endl;
+	cout << "matrix COEF[" << n << "][" << elements / n << "], matrix JCOEF[" << n << "][" << elements / n << "]\n";
+	cout << "summary memory: " << 2 * (elements) << " * type_size" << endl;
 	SparseMatrix::print();
 	cout << endl;
 }

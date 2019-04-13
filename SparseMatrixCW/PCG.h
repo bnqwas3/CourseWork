@@ -16,6 +16,7 @@ protected:
 	vector<double> r_new;
 	vector<double> z_new;
 	vector<double> d_new;
+	vector<double> errorVector;
 	double alpha = 0;
 	double beta = 0;
 	double time = 0;
@@ -27,9 +28,10 @@ private:
 	void getNext_z(vector<double>&, vector<double>&, vector<double>&, vector<double>&);
 	void getNext_Beta(double, vector<double>&, vector<double>&, vector<double>&, vector<double>&);
 	void getNext_d(vector<double>&, double, vector<double>&, vector<double>&);
-	void initializeValues(vector<double>&, vector<double>&, vector<double>&, vector<double>, vector<double>, SparseMatrix*, vector<double>);
+	void initializeValues(vector<double>&, vector<double>&, vector<double>&, vector<double>&, vector<double>, vector<double>, SparseMatrix*, vector<double>);
 	void prepareToNextStep(vector<double>&, vector<double>&, vector<double>&, vector<double>, vector<double>, vector<double>);
 	void getInverseC(vector<double>&, vector<double>);
+	void getErrorVector(vector<double>&, vector<double>, vector<double>);
 	double getNorm(vector<double>);
 	void printVector(vector<double>);
 public:

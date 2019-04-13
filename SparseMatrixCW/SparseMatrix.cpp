@@ -49,5 +49,6 @@ int SparseMatrix::getN() {
 void SparseMatrix::print() {
 	cout << "time to set matrix: " << time << " seconds" << endl;
 	cout << "time to multiply by vector: " << timeDotVector << " seconds" << endl;
+	cout << "time to multiply by vector left: " << timeDotVectorLeft << " seconds" << endl;
 	cout << "bandwidth: " << 2 * n / timeDotVector << endl;
 }

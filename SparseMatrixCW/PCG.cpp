@@ -17,12 +17,13 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 	r_new.resize(n);
 	z_new.resize(n);
 	d_new.resize(n);
+	errorVector.resize(n);
 	getInverseC(inverse_C, inverseDiag);
 	b = _b;
 	x = _x;
-	initializeValues(r, z, d, inverse_C, b, A, x);
+	initializeValues(errorVector, r, z, d, inverse_C, b, A, x);
 	int i = 0;
-	while(getNorm(r) > epsilon && i < 10) {
+	while(getNorm(errorVector) > epsilon || i < 1000) {
 		if (i != 0) prepareToNextStep(z, d, r, z_new, r_new, d_new);
 		getNext_Alpha(alpha, z, r, d, A);
 		getNext_x(x, d, alpha);
@@ -30,12 +31,14 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 		getNext_z(z_new, z, r_new, inverse_C);
 		getNext_Beta(beta, z_new, r_new, z, r);
 		getNext_d(d_new, beta, z_new, d);
+		getErrorVector(errorVector, r, r_new);
 		i++;
+		cout << i << ' ';
+		printVector(errorVector);
 	}
 	auto end = chrono::high_resolution_clock::now();
 	time = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	time /= 1000000000;
-	cout << "bandwidth: " << (2*n) / time << endl;
 }
 
 double PCG::vectorDotVector(vector<double>& a, vector<double>& b) {
@@ -89,10 +92,11 @@ void PCG::getNext_d(vector<double>& d_new, double beta, vector<double>& z_new, v
 	}
 }
 
-void PCG::initializeValues(vector<double>& r, vector<double>& z, vector<double>& d, vector<double> inverse_C, vector<double> b, SparseMatrix* A, vector<double> x) {
+void PCG::initializeValues(vector<double>& errorVector, vector<double>& r, vector<double>& z, vector<double>& d, vector<double> inverse_C, vector<double> b, SparseMatrix* A, vector<double> x) {
 	vector<double> temp(A->dotVector(x));
 	for (int i = 0; i < b.size(); i++) {
 		r[i] = b[i] - temp[i];
+		errorVector[i] = r[i];
 		z[i] = inverse_C[i] * r[i];
 		d[i] = z[i];
 	}
@@ -104,21 +108,23 @@ void PCG::prepareToNextStep(vector<double>& z, vector<double>& d, vector<double>
 	d = d_new;
 }
 
+void PCG::getErrorVector(vector<double>& errorVector, vector<double> r, vector<double> r_new) {
+	for (int i = 0; i < errorVector.size(); i++) {
+		errorVector[i] = abs(r[i] - r_new[i]);
+	}
+}
 double PCG::getNorm(vector<double> x) {
 	double norm = 0;
 	for (auto i : x) {
-		norm += i * i;
+		if (i > norm) {
+			norm = i;
+		}
 	}
-	return sqrt(norm);
+	return norm;
 }
 
 void PCG::printVector(vector<double> x) {
-	/*for (int i = 0; i < x.size(); i++) {
-		cout << x[i] << ' ';
-	}
-	cout << endl;*/
-
-	for (int i = 0; i < x.size(); i += x.size() / 5) {
+	for (int i = 0; i < x.size(); i += x.size() / 5) {//print 5 elements of vector
 		cout << x[i] << ' ';
 	}
 	cout << endl;
@@ -137,5 +143,5 @@ void printVector(vector<double> x) {
 }
 
 void PCG::printXi(int i) {
-	cout << x[i] << ' ';
+	cout <<"x[" << i << "] = " <<  x[i] << ' ';
 }
