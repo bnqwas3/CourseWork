@@ -51,7 +51,7 @@ vector<double> ELLpack::dotVector(vector<double> x) {
 		k = 0;
 		for (auto j : coef[i]) {
 			result[i] += x[jcoef[i][k]] * j;
-			b[i] += x[jcoef[i][k]] * j;
+			//b[i] += x[jcoef[i][k]] * j;
 			k++;
 		}
 	}
@@ -103,11 +103,11 @@ void ELLpack::printJCOEF() {
 	}
 }
 
-void ELLpack::print() {
-	cout << "ELLpack-itpack: " << endl;
-	cout << "Need memory to store: " << endl;
-	cout << "matrix COEF[" << n << "][" << elements / n << "], matrix JCOEF[" << n << "][" << elements / n << "]\n";
-	cout << "summary memory: " << 2 * (elements) << " * type_size" << endl;
-	SparseMatrix::print();
-	cout << endl;
+void ELLpack::print(ofstream& out) {
+	out << "ELLpack-itpack: " << endl;
+	out << "Need memory to store: " << endl;
+	out << "matrix COEF[" << n << "][" << elements / n << "], matrix JCOEF[" << n << "][" << elements / n << "]\n";
+	out << "summary memory: " << 2 * (elements) << " * type_size" << endl;
+	SparseMatrix::print(out);
+	out << endl;
 }

@@ -6,7 +6,6 @@ using namespace std;
 #ifndef SPARSEMATRIX_H
 #define SPARSEMATRIX_H
 
-
 class SparseMatrix {
 protected:
 	int n;
@@ -24,7 +23,7 @@ public:
 	virtual void setMatrix(double** matrix);
 	virtual vector<double> dotVector(vector<double> x) = 0;
 	virtual vector<double> dotVectorLeft(vector<double> x) = 0;
-	virtual void print();
+	virtual void print(ostream& out);
 	virtual void printB();
 	int getN();
 };

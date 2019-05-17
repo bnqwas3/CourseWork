@@ -5,7 +5,6 @@
 #ifndef INPUTMATRIX_H
 #define INPUTMATRIX_H
 using namespace std;
-#pragma once
 class InputMatrix {
 private:
 	int n;
@@ -33,5 +32,6 @@ public:
 	void print();
 	void printWithZeros();
 	vector<double> getInverseDiagonal();
+
 };
 #endif

@@ -104,13 +104,13 @@ vector<double> Hybrid::dotVector(vector<double> x) {
 		k = 0;
 		for (auto j : coef[i]) {
 			result[i] += x[jcoef[i][k]] * j;
-			b[i] += x[jcoef[i][k]] * j;
+			//b[i] += x[jcoef[i][k]] * j;
 			k++;
 		}
 	}
 	k = 0;
 	for (auto i : AA) {
-		b[JR[k]] += i * x[JC[k]];
+		//b[JR[k]] += i * x[JC[k]];
 		result[JR[k]] += i * x[JC[k]];
 		k++;
 	}
@@ -186,12 +186,12 @@ void Hybrid::printJC() {
 	cout << endl;
 }
 
-void Hybrid::print() {
-	cout << "Hybrid: " << endl;
-	cout << "Need memory to store: " << endl;
-	cout << "array AA[" << AA.size() << "], array JR[" << JR.size() << "], array JC[" << JC.size() << "]\n";
-	cout << "matrix COEF[" << n << "][" << coef[0].size() << "], matrix JCOEF[" << n << "][" << coef[0].size() << "]\n";
-	cout << "summary memory: " << AA.size() + JR.size() + JC.size() + 2 * (n * coef[0].size()) << " * type_size" << endl;
-	SparseMatrix::print();
-	cout << endl;
+void Hybrid::print(ofstream& out) {
+	out << "Hybrid: " << endl;
+	out << "Need memory to store: " << endl;
+	out << "array AA[" << AA.size() << "], array JR[" << JR.size() << "], array JC[" << JC.size() << "]\n";
+	out << "matrix COEF[" << n << "][" << coef[0].size() << "], matrix JCOEF[" << n << "][" << coef[0].size() << "]\n";
+	out << "summary memory: " << AA.size() + JR.size() + JC.size() + 2 * (n * coef[0].size()) << " * type_size" << endl;
+	SparseMatrix::print(out);
+	out << endl;
 }

@@ -19,7 +19,7 @@ public:
 	void setMatrix(vector<double> values, vector<int> JR, vector<int> JC);
 	vector<double> dotVector(vector<double> x);
 	vector<double> dotVectorLeft(vector<double> x);
-	void print();
+	void print(ofstream& out);
 	void printAA();
 	void printJR();
 	void printJC();

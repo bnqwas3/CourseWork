@@ -1,0 +1,11 @@
+format: batchSize coo_bandwidth csc_bandwidth hyb_bandwidth ell_bandwidth
+1000 inf inf 122888 161352 
+2000 inf inf 61758.9 81372.7 
+3000 inf inf 39090.3 50991.5 
+4000 inf inf 30877 40157.3 
+5000 inf inf 21561.2 32157.1 
+6000 inf inf 14328.9 21563.5 
+7000 inf inf 7802.1 10885.9 
+8000 inf inf 9057.5 13660.2 
+9000 inf inf 12219.6 14981.3 
+10000 inf inf 8761.51 15024.1 

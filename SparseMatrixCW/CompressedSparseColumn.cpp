@@ -14,7 +14,6 @@ CompressedSparseColumn::CompressedSparseColumn() : SparseMatrix::SparseMatrix() 
 CompressedSparseColumn::CompressedSparseColumn(int n, int elements) : SparseMatrix::SparseMatrix(n, elements) {
 }
 CompressedSparseColumn::~CompressedSparseColumn() {
-
 }
 void CompressedSparseColumn::setMatrix(double** matrix) {
 
@@ -44,10 +43,17 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 	copy(JR.begin(), JR.end(), back_inserter(JA));
 	int k = 0;
 	IA.push_back(0);
-	for (int i = 1; i < JC.size(); i++) {
+	int i;
+	for (i = 1; i < JC.size(); i++) {
 		if (JC[i] != JC[i - 1]) {
-			IA.push_back(i);
+			for (int l = 0; l < JC[i] - JC[i - 1]; l++) {
+				IA.push_back(i);
+			}
+			
 		}
+	}
+	for (int l = 0; l < n - JC[i-1]; l++) {
+		IA.push_back(i - 1);
 	}
 	IA.push_back(JC.size());
 	auto end = chrono::high_resolution_clock::now();
@@ -56,7 +62,6 @@ void CompressedSparseColumn::setMatrix(vector<double> values, vector<int> JR, ve
 }
 
 vector<double> CompressedSparseColumn::dotVector(vector<double> x) {
-
 	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
@@ -64,7 +69,7 @@ vector<double> CompressedSparseColumn::dotVector(vector<double> x) {
 		int k1 = IA[j];
 		int k2 = IA[j + 1];
 		for (int k = k1; k < k2; k++) {
-			b[JA[k]] = b[JA[k]] + x[j] * AA[k];
+			//b[JA[k]] = b[JA[k]] + x[j] * AA[k];
 			result[JA[k]] = result[JA[k]] + x[j] * AA[k];
 		}
 	}
@@ -127,11 +132,11 @@ void CompressedSparseColumn::printIA() {
 	cout << endl;
 }
 
-void CompressedSparseColumn::print() {
-	cout << "Compressed sparse column format: " << endl;
-	cout << "Need memory to store: " << endl;
-	cout << "array AA[" << AA.size() << "], array JA[" << JA.size() << "], array IA[" << IA.size() << "]\n";
-	cout << "summary memory: " << AA.size() + JA.size() + IA.size() << " * type_size" << endl;
-	SparseMatrix::print();
-	cout << endl;
+void CompressedSparseColumn::print(ofstream& out) {
+	out << "Compressed sparse column format: " << endl;
+	out << "Need memory to store: " << endl;
+	out << "array AA[" << AA.size() << "], array JA[" << JA.size() << "], array IA[" << IA.size() << "]\n";
+	out << "summary memory: " << AA.size() + JA.size() + IA.size() << " * type_size" << endl;
+	SparseMatrix::print(out);
+	out << endl;
 }

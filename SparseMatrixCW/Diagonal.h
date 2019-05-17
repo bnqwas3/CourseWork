@@ -26,7 +26,7 @@ public:
 	int findPositionInDiag(int);
 	int getJinIOF(int);
 	void printB();
-	void print();
+	void print(ofstream& out);
 	int IOFat(int);
 };
 #endif

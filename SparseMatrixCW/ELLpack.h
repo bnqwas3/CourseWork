@@ -20,6 +20,6 @@ public:
 	vector<double> dotVectorLeft(vector<double> x);
 	void printCOEF();
 	void printJCOEF();
-	void print();
+	void print(ofstream& out);
 };
 #endif

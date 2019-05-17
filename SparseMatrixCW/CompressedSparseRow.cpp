@@ -111,11 +111,11 @@ void CompressedSparseRow::printIA() {
 	cout << endl;
 }
 
-void CompressedSparseRow::print() {
-	cout << "Compressed sparse row format: " << endl;
+void CompressedSparseRow::print(ofstream& out) {
+	out << "Compressed sparse row format: " << endl;
 	printAA();
 	printJA();
 	printIA();
-	SparseMatrix::print();
-	cout << endl;
+	SparseMatrix::print(out);
+	out << endl;
 }

@@ -18,7 +18,7 @@ public:
 	vector<double> dotVectorLeft(vector<double>);
 	double calculateBi(vector<double>, int, int);
 	void printB();
-	void print();
+	void print(ofstream& out);
 	void printAA();
 	void printJA();
 	void printIA();

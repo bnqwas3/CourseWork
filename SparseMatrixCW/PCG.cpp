@@ -23,7 +23,7 @@ PCG::PCG(SparseMatrix* A, vector<double> inverseDiag, double epsilon, vector<dou
 	x = _x;
 	initializeValues(errorVector, r, z, d, inverse_C, b, A, x);
 	int i = 0;
-	while(getNorm(errorVector) > epsilon || i < 1000) {
+	while(getNorm(errorVector) > epsilon && i < 1000) {
 		if (i != 0) prepareToNextStep(z, d, r, z_new, r_new, d_new);
 		getNext_Alpha(alpha, z, r, d, A);
 		getNext_x(x, d, alpha);

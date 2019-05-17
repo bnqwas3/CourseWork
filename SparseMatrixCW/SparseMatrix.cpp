@@ -12,10 +12,7 @@ SparseMatrix::SparseMatrix() {
 SparseMatrix::SparseMatrix(int n, int elements) {
 	this->n = n;
 	this->elements = elements;
-	b.reserve(n);
-	for (int i = 0; i < n; i++) {
-		b.push_back(0);
-	}
+	b.resize(n);
 }
 SparseMatrix::~SparseMatrix() {}
 void::SparseMatrix::printB() {
@@ -46,9 +43,10 @@ int SparseMatrix::getN() {
 	return n;
 }
 
-void SparseMatrix::print() {
-	cout << "time to set matrix: " << time << " seconds" << endl;
-	cout << "time to multiply by vector: " << timeDotVector << " seconds" << endl;
-	cout << "time to multiply by vector left: " << timeDotVectorLeft << " seconds" << endl;
-	cout << "bandwidth: " << 2 * n / timeDotVector << endl;
+void SparseMatrix::print(ostream& out) {
+	/*out << "time to set matrix: " << time << " seconds" << endl;
+	out << "time to multiply by vector: " << timeDotVector << " seconds" << endl;
+	out << "time to multiply by vector left: " << timeDotVectorLeft << " seconds" << endl;
+	out << "bandwidth: " << 2 * n / timeDotVector << endl;*/
+	out << 2 * n / timeDotVector << ' ';
 }

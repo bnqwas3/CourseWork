@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include<iostream>
+#include<ostream>
 #include"Coordinate.h"
 #ifndef COMPRESSEDSPARSEROW_H
 #define COMRPESSEDSPARSEROW_H
@@ -21,6 +22,6 @@ public:
 	void printAA();
 	void printJA();
 	void printIA();
-	void print();
+	void print(ofstream& out);
 };
 #endif

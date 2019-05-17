@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BatchWrapper.h" />
     <ClInclude Include="CompressedSparseColumn.h" />
     <ClInclude Include="CompressedSparseRow.h" />
     <ClInclude Include="Coordinate.h" />
@@ -154,12 +155,14 @@
     <ClInclude Include="ELLpack.h" />
     <ClInclude Include="Hybrid.h" />
     <ClInclude Include="InputMatrix.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="PCG.h" />
     <ClInclude Include="SparseMatrix.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BatchWrapper.cpp" />
     <ClCompile Include="CompressedSparseColumn.cpp" />
     <ClCompile Include="CompressedSparseRow.cpp" />
     <ClCompile Include="Coordinate.cpp" />

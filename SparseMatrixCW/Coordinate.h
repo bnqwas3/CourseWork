@@ -28,6 +28,6 @@ public:
 	void printJR();
 	void printJC();
 	void printB();
-	void print();
+	void print(ofstream& out);
 };
 #endif

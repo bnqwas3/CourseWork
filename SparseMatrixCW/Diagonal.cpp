@@ -150,11 +150,11 @@ void Diagonal::printB() {
 	SparseMatrix::printB();
 }
 
-void Diagonal::print() {
-	cout << "Diagonal: " << endl;
-	cout << "Need memory to store: " << endl;
-	cout << "Matrix DIA[" << n << "][" << IOF.size() << "], array IOF[" << IOFF.size() << "]\n";
-	cout << "summary memory: " << n * IOF.size() + IOFF.size() << " * type_size" << endl;
-	SparseMatrix::print();
-	cout << endl;
+void Diagonal::print(ofstream& out) {
+	out << "Diagonal: " << endl;
+	out << "Need memory to store: " << endl;
+	out << "Matrix DIA[" << n << "][" << IOF.size() << "], array IOF[" << IOFF.size() << "]\n";
+	out << "summary memory: " << n * IOF.size() + IOFF.size() << " * type_size" << endl;
+	SparseMatrix::print(out);
+	out << endl;
 }
