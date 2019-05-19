@@ -23,7 +23,7 @@ InputMatrix::InputMatrix(ifstream &fin) {
 	}*/
 	for (int i = 0; i < nonZeros; i++) {
 		fin >> _i >> _j >> _real;
-		//_real = rand();
+		_real = rand()*10/3;
 		real.push_back(_real);
 		JR.push_back(_i - 1);
 		JC.push_back(_j - 1);

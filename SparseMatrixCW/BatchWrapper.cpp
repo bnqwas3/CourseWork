@@ -10,7 +10,6 @@ BatchWrapper::BatchWrapper(vector<InputMatrix> inputMatrix,const int _size, cons
 	nonZeros = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
-			cout << i << ' ' << j << endl;
 			int random = rand() % inputMatrix.size();
 			nonZeros += inputMatrix[random].getNonZeros();
 			matricesInside.push_back(random);

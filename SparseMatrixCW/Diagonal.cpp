@@ -59,7 +59,6 @@ vector<double> Diagonal::dotVector(vector<double> x) {
 	auto begin = chrono::high_resolution_clock::now();
 	vector<double> result;
 	result.resize(x.size());
-	int iterations = 0;
 	int index;
 	for (int i = 0; i < x.size(); i++) {
 		for (int k = 0; k < DIAG[i].size(); k++) {
@@ -67,7 +66,6 @@ vector<double> Diagonal::dotVector(vector<double> x) {
 			if (index >= 0 && index < x.size() && DIAG[i][k] != 0) {
 				result[i] += DIAG[i][k] * x[index];
 				b[i] += DIAG[i][k] * x[index];
-				iterations++;
 			}
 		}
 	}

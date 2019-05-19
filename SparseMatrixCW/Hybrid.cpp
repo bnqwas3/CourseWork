@@ -104,13 +104,11 @@ vector<double> Hybrid::dotVector(vector<double> x) {
 		k = 0;
 		for (auto j : coef[i]) {
 			result[i] += x[jcoef[i][k]] * j;
-			//b[i] += x[jcoef[i][k]] * j;
 			k++;
 		}
 	}
 	k = 0;
 	for (auto i : AA) {
-		//b[JR[k]] += i * x[JC[k]];
 		result[JR[k]] += i * x[JC[k]];
 		k++;
 	}

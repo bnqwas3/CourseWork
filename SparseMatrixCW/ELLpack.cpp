@@ -51,7 +51,6 @@ vector<double> ELLpack::dotVector(vector<double> x) {
 		k = 0;
 		for (auto j : coef[i]) {
 			result[i] += x[jcoef[i][k]] * j;
-			//b[i] += x[jcoef[i][k]] * j;
 			k++;
 		}
 	}
@@ -79,7 +78,6 @@ vector<double> ELLpack::dotVectorLeft(vector<double> x) {
 	timeDotVectorLeft = chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
 	timeDotVectorLeft /= 1000000000;
 	return result;
-
 }
 
 

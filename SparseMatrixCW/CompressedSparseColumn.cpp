@@ -68,7 +68,7 @@ vector<double> CompressedSparseColumn::dotVector(vector<double> x) {
 	for (int j = 0; j < n; j++) {
 		int k1 = IA[j];
 		int k2 = IA[j + 1];
-		for (int k = k1; k < k2; k++) {
+		for (int k = k1; k < k2; k++) {	
 			//b[JA[k]] = b[JA[k]] + x[j] * AA[k];
 			result[JA[k]] = result[JA[k]] + x[j] * AA[k];
 		}
@@ -102,7 +102,6 @@ double CompressedSparseColumn::calculateBi(vector<double> x, int k1, int k2) {
 		b += AA[j] * x[JA[j]];
 	}
 	return b;
-
 }
 
 void CompressedSparseColumn::printB() {
